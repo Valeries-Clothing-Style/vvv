@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Withdrawal Records</title>
+    <!-- Include Font Awesome for the trash can icon -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 20px;
+        }
+        
+
+        h3 {
+            color: #333;
+            margin-bottom: 20px;
+            text-align: center; /* Center align heading */
+        }
+
+        .container {
+            max-width: 900px; /* Limit the width for larger screens */
+            margin: auto; /* Center container */
+            padding: 20px;
+            background: #ffffff; /* White background for content area */
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .records-list {
+            display: flex;
+            flex-direction: column;
+            gap: 15px; /* Space between records */
+        }
+
+        .record-item {
+            background-color: #f9f9f9; /* Slightly darker background for records */
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            padding: 20px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            display: flex; /* Flexbox for horizontal alignment */
+            justify-content: space-between; /* Space between content and button */
+            align-items: center; /* Align items vertically */
+        }
+
+        .record-info {
+            display: flex; /* Flexbox for record info */
+            justify-content: space-between; /* Space out amount and date */
+            width: 100%; /* Take full width */
+            align-items: center; /* Center align items vertically */
+        }
+
+        .record-info p {
+            margin: 5px 0; /* Space between paragraphs */
+            color: #555;
+            font-size: 14px;
+            
+        }
+
+        .date {
+            text-align: center; /* Center align the date */
+            flex-grow: 1; /* Allow date to take remaining space */
+        }
+
+        .delete-button {
+            background: none; /* No background for the button */
+            border: none; /* No border for the button */
+            cursor: pointer; /* Cursor pointer on hover */
+            color: #e74c3c; /* Red color for the trash can icon */
+            font-size: 15px; /* Size of the icon */
+            transition: color 0.3s ease; /* Transition effect */
+        }
+
+        .delete-button:hover {
+            color: #c0392b; /* Darker red on hover */
+        }
+
+        .no-records {
+            color: #999;
+            text-align: center; /* Center align no records message */
+            margin-top: 20px; /* Space above the no records message */
+        }
+        #backgroundVideo {
+            position: fixed;
+            top: 0;
+            left: 0;
+            min-width: 100%;
+            min-height: 100%;
+            z-index: -1; /* Send the video to the background */
+            object-fit: cover; /* Ensure the video covers the entire screen */
+            filter: brightness(20%);  
+        }    
+    </style>
+</head>
+<body>
+    <video autoplay muted loop id="backgroundVideo">
+        <source src="video-bg.mp4" type="video/mp4">
+        Your browser does not support the video tag.
+    </video>
+
+    <h3 style="color: white;">Withdrawal Records</h3>
+
+    <div class="container">
+        <div id="withdrawalRecords" class="records-list"></div>
+        <p class="no-records" id="noRecordsMessage">No withdrawals made yet.</p>
+    </div>
+
+    <script>
+        function displayWithdrawalRecords() {
+            const withdrawalRecords = JSON.parse(localStorage.getItem('withdrawalRecords')) || [];
+            const recordsList = document.getElementById('withdrawalRecords');
+            const noRecordsMessage = document.getElementById('noRecordsMessage');
+
+            recordsList.innerHTML = ''; // Clear previous content
+
+            if (withdrawalRecords.length === 0) {
+                noRecordsMessage.style.display = 'block'; // Show no records message
+            } else {
+                noRecordsMessage.style.display = 'none'; // Hide no records message
+                withdrawalRecords.forEach((record, index) => {
+                    const recordItem = document.createElement('div');
+                    recordItem.className = 'record-item';
+                    recordItem.innerHTML = `
+                        <div class="record-info">
+                            <p><strong>Amount:</strong> ₱${record.amount.toFixed(2)}</p>
+                            <p class="date"><strong>Date:</strong> ${new Date(record.date).toLocaleString()}</p>
+                        </div>
+                        <button class="delete-button" onclick="deleteWithdrawal(${index})">
+                            <i class="fas fa-trash-alt"></i> <!-- Trash can icon -->
+                        </button>
+                    `;
+                    recordsList.appendChild(recordItem);
+                });
+            }
+        }
+
+        function deleteWithdrawal(index) {
+            const withdrawalRecords = JSON.parse(localStorage.getItem('withdrawalRecords')) || [];
+            withdrawalRecords.splice(index, 1); // Remove the record at the given index
+            localStorage.setItem('withdrawalRecords', JSON.stringify(withdrawalRecords)); // Save updated records
+            displayWithdrawalRecords(); // Refresh the displayed records
+        }
+
+        // Call display function on page load
+        document.addEventListener('DOMContentLoaded', displayWithdrawalRecords);
+    </script>
+
+
+
+
+
+
+    <footer class="footer">
+        <div class="footer-icons">
+            <a href="dashboard.html" class="footer-item">
+                <img src="home-icon.png" alt="Home" class="footer-icon">
+                <span class="icon-label">Home</span>
+            </a>
+            <a href="invest.html" class="footer-item">
+                <img src="invest-icon.png" alt="Invest" class="footer-icon">
+                <span class="icon-label">Invest</span>
+            </a>
+            <a href="teams.html" class="footer-item">
+                <img src="team-icon.png" alt="Teams" class="footer-icon">
+                <span class="icon-label">Teams</span>
+            </a>
+            <a href="mine.html" id="logoutLink" class="footer-item">
+                <img src="mine-icon.png" alt="Mine" class="footer-icon">
+                <span class="icon-label">Mine</span>
+            </a>
+        </div>
+    </footer>
+    <style>
+     
+      
+      
+        .footer {
+            background-color: rgba(0, 128, 0, 0.3); /* Semi-transparent green for glass effect */
+            padding: 10px 0;
+            position: fixed;
+            bottom: 0;
+            width: 100%;
+            border-radius: 15px;
+            backdrop-filter: blur(10px); /* Frosted glass blur effect */
+            box-shadow: 0 4px 10px rgba(0, 255, 0, 0.4), 0 2px 20px rgba(0, 128, 0, 0.6); /* Green glowing effect */
+            border: 1px solid rgba(255, 255, 255, 0.2); /* Light border for glass effect */
+            transition: box-shadow 0.3s ease; /* Smooth transition effect */
+            margin-left: -20px;
+            
+        }
+        
+        .footer:hover {
+            box-shadow: 0 6px 15px rgba(0, 255, 0, 0.6), 0 4px 25px rgba(0, 128, 0, 0.8); /* Brighter shine on hover */
+        }
+        
+        .footer-icons {
+            display: flex;
+            justify-content: space-around;
+        }
+        
+        .footer-item {
+            display: flex;
+            flex-direction: column; /* Stack icon and label vertically */
+            align-items: center; /* Center the icon and label */
+            text-decoration: none; /* Remove underline from links */
+        }
+        
+        .footer-icon {
+            width: 40px;
+            height: 40px;
+            filter: brightness(0) invert(1); /* Make the icon white */
+        }
+        
+        .icon-label {
+            color: white; /* White text for the labels */
+            font-size: 14px; /* Adjust size of the label text */
+            margin-top: 5px; /* Space between icon and label */
+        }
+    </style>
+    
+</body>
+</html>

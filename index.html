@@ -1,0 +1,543 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>VeilVest Registration</title>
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        
+   
+        body {
+            font-family: Arial, sans-serif; /* Set a font for the body */
+            background-color: #fff; 
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 80vh; /* Full viewport height */
+            text-align: center;
+        }
+        .registration-form {
+            background: rgba(255, 255, 255, 0.2); /* Translucent background */
+            -webkit-backdrop-filter: blur(10px); /* Apply blur effect */
+            backdrop-filter: blur(5px); /* Support for Safari */
+            padding: 20px;
+            border-radius: 10px;
+            border: 1px solid rgba(255, 255, 255, 0.3); /* Light border to enhance glass effect */
+            box-shadow: 0 4px 6px rgba(255, 255, 255, 0.1); /* Subtle shadow for depth */
+            width: 100%;
+            max-width: 400px;
+            margin: 0 auto; /* Centering form */
+        }
+        
+
+        .app-title {
+            color: #00ffcc; /* Bright, tech-inspired color */
+            font-size: 36px; /* Adjust font size */
+            margin-bottom: 30px;
+            text-align: center; /* Center the title */
+            font-family: 'Roboto Mono', monospace; /* Use the Roboto Mono font */
+            text-transform: uppercase; /* Uppercase letters for a stronger impact */
+            letter-spacing: 2px; /* Space between letters for a tech look */
+            text-shadow: 
+                1px 2px 3px rgba(0, 0, 0, 0.7), /* Strong shadow to the right and down */
+                -1px -2px 6px rgba(0, 0, 0, 0.7); /* Strong shadow to the left and up */
+        }
+        
+
+        .form-group {
+            width: 100%;
+            margin-bottom: 10px; /* Space between input fields */
+            margin-left: -10px;
+            display: flex; /* Use flexbox for alignment */
+            align-items: center; /* Center items vertically */
+            border: 1px solid rgba(0, 209, 0, 0.5); /* Semi-transparent border for glass effect */
+            border-radius: 10px; /* Rounded corners */
+            padding: 10px; /* Padding around the content */
+            backdrop-filter: blur(10px); /* Blurring the background */
+            background-color: rgba(255, 255, 255, 0.1); /* Slightly transparent white background */
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3); /* Soft shadow for depth */
+            transition: background-color 0.3s ease; /* Smooth transition for hover effect */
+        }
+        
+        .form-group:hover {
+            background-color: rgba(255, 255, 255, 0.2); /* Darker on hover */
+        }
+        
+        .icon {
+            width: 20px; /* Icon size */
+            height: 20px; /* Icon size */
+            margin-right: 10px; /* Space between icon and input */
+        }
+        
+        input {
+            border: none; /* No border for the input */
+            flex: 1; /* Allow input to grow and fill available space */
+            font-size: 16px; /* Font size for input text */
+            outline: none; /* No outline on focus */
+            color: rgb(255, 255, 255);
+            background-color: transparent; /* Transparent background */
+            text-shadow: 
+            0px 0px 3px rgba(0, 0, 0, 0.7), /* Strong shadow to the right and down */
+            0 0 1px rgba(0, 0, 0, 0.7); /* Strong shadow to the left and up */
+        }
+            
+        
+        
+        input::placeholder {
+            color: #dbd7d7; /* Placeholder text color */
+            background-color: transparent;
+            
+        }
+        
+        
+        
+        .register-btn {
+            width: 70%; /* Ensures button occupies the full width */
+            background-color: rgba(255, 255, 255, 0.1); /* Slightly transparent white for glass effect */
+            color: #fff; /* Text color */
+            border: 1px solid rgba(255, 255, 255, 0.3); /* Semi-transparent white border */
+            padding: 10px; /* Padding for better button appearance */
+            font-size: 18px; /* Font size */
+            border-radius: 25px; /* Rounded corners */
+            cursor: pointer; /* Pointer cursor on hover */
+            margin-top: 20px; /* Space above button */
+            backdrop-filter: blur(10px); /* Blurring the background behind the button */
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2); /* Soft shadow for depth */
+            transition: background-color 0.3s, transform 0.3s; /* Smooth transition effect */
+        }
+        
+        .register-btn:hover {
+            background-color: rgba(255, 255, 255, 0.2); /* Darker on hover */
+            transform: scale(1.05); /* Slightly increase size on hover */
+        }
+        
+        .send-otp-btn {
+            padding: 5px 10px; /* Adjust the padding for height and width */
+            font-size: 12px; /* Change the font size */
+            border: 1px solid rgba(255, 255, 255, 0.3); /* Semi-transparent white border */
+            border-radius: 4px; /* Rounded corners */
+            background-color: rgba(255, 255, 255, 0.1); /* Slightly transparent white for glass effect */
+            color: rgb(207, 205, 205); /* Text color */
+            cursor: pointer; /* Pointer cursor on hover */
+            backdrop-filter: blur(10px); /* Blurring the background behind the button */
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2); /* Soft shadow for depth */
+            transition: background-color 0.3s, transform 0.3s; /* Smooth transition effect */
+        }
+        
+        .send-otp-btn:hover {
+            background-color: rgba(245, 245, 245, 0.2); /* Darker on hover */
+            color: white;
+            transform: scale(1.05); /* Slightly increase size on hover */
+        }
+        
+        
+        .login-link {
+            display: block;
+            margin-top: 20px;
+            color: rgb(202, 202, 202);
+            text-decoration: none;
+            text-shadow: 
+            1px 2px 3px rgba(0, 0, 0, 0.7), /* Strong shadow to the right and down */
+            -1px -2px 6px rgba(0, 0, 0, 0.7); /* Strong shadow to the left and up */
+        }
+        
+        
+        .login-link:hover {
+            color: rgb(0, 205, 0);
+        }
+        
+        /* Responsive Design for Mobile */
+        @media (max-width: 600px) {
+            .registration-container {
+                width: 90%;
+            }
+        
+        }
+        #message {
+            color: rgb(255, 21, 21); /* Default color for message */
+            text-align: center; /* Center the text */
+            margin-top: 10px; /* Space above message */
+            height: 40px; /* Fixed height to prevent layout shifts */
+            overflow: hidden; /* Hide overflow to keep layout neat */
+            transition: all 0.3s ease; /* Smooth transition */
+            text-shadow: 
+            1px 0px 0px rgba(0, 0, 0, 0.7), /* Strong shadow to the right and down */
+            0px 0px 2px rgba(0, 0, 0, 0.7); /* Strong shadow to the left and up */
+    }
+        
+
+        @keyframes shake {
+            0% { transform: translate(0); }
+            25% { transform: translate(-5px); }
+            50% { transform: translate(5px); }
+            75% { transform: translate(-5px); }
+            100% { transform: translate(0); }
+        }
+
+        .shake {
+            animation: shake 0.5s; /* Duration of the shake */
+        }
+
+        @keyframes shake {
+            0% { transform: translate(0); }
+            25% { transform: translate(-5px); }
+            50% { transform: translate(5px); }
+            75% { transform: translate(-5px); }
+            100% { transform: translate(0); }
+        }
+        
+        .shake {
+            animation: shake 0.5s; 
+        }
+       /* Make the video cover the entire screen */
+#backgroundVideo {
+    position: fixed;
+    top: 0;
+    left: 0;
+    min-width: 100%;
+    min-height: 100%;
+    z-index: -1; /* Send the video to the background */
+    object-fit: cover; /* Ensure the video covers the entire screen */
+    filter: brightness(20%);  
+}        
+/* Style for the eye icon */
+.eye-icon {
+    position: absolute;
+    right: 10px; /* Adjust this value to position the icon properly */
+    top: 50%; /* Centers the icon vertically */
+    transform: translateY(-50%); /* Adjust for exact vertical centering */
+    width: 20px; /* Adjust the size of the icon */
+    height: 20px; /* Adjust the size of the icon */
+    cursor: pointer; /* Change the cursor to indicate it's clickable */
+    z-index: 10; /* Ensure it sits above the input field */
+}
+
+/* Optional: Add hover effect for the icon */
+.eye-icon:hover {
+    opacity: 0.7; /* Slightly transparent on hover */
+}
+
+/* Input field adjustments to prevent overlap with icon */
+.form-group {
+    margin-bottom: 20px; /* Add space between form groups */
+}
+
+.form-group input {
+    padding-right: 40px; /* Add padding to the right to avoid text overlap with the icon */
+}
+    </style>
+
+</head>
+<body>
+    <video autoplay muted loop id="backgroundVideo">
+        <source src="video-bg.mp4" type="video/mp4">
+        Your browser does not support the video tag.
+    </video>
+    
+    
+    <!-- Registration Form -->
+<form id="registerForm" class="registration-form">
+    <h1 class="app-title">VeilVest</h1>
+
+    <div class="form-group">
+        <img src="phone-icon.png" alt="phone icon" class="icon">
+        <input type="text" id="phone" placeholder="Please enter phone number" required>
+    </div>
+
+    <div class="form-group">
+        <img src="password-icon.png" alt="password icon" class="icon">
+        <input type="password" id="password" placeholder="Please enter your password" required>
+        <img src="eye-icon.png" alt="Toggle Password Visibility" class="eye-icon" id="togglePassword" onclick="togglePasswordVisibility('password', 'togglePassword')">
+    </div>  
+
+    <div class="form-group">
+        <img src="password-icon.png" alt="password icon" class="icon">
+        <input type="password" id="confirm-password" placeholder="Enter password again" required>
+        <img src="eye-icon.png" alt="Toggle Password Visibility" class="eye-icon" id="toggleConfirmPassword" onclick="togglePasswordVisibility('confirm-password', 'toggleConfirmPassword')">
+    </div>
+
+    <div class="form-group">
+        <img src="invitation-icon.png" alt="invitation icon" class="icon">
+        <input type="text" id="invitation-code" placeholder="Please enter the invitation code" required>
+    </div>
+
+
+    <div class="form-group">
+        <img src="verification-icon.png" alt="verification icon" class="icon">
+        <input type="text" id="verification-code" placeholder="Please enter verification code" disabled required>
+        <button type="button" id="sendOtpButton" class="send-otp-btn" onclick="sendOTP()">Send OTP</button>
+    </div>
+    
+  <!-- OTP Modal -->
+<div id="otpModal" class="modal">
+    <div class="modal-content">
+        <div class="modal-header">
+            <h2>Verification</h2>
+            <span class="close" onclick="closeModal()">&times;</span>
+        </div>
+        <div class="modal-body">
+            <p id="modalMessage"></p>
+        </div>
+        <div class="modal-footer">
+            <button class="modal-button copy-button" onclick="copyOTP()">Copy OTP</button>
+            <button class="modal-button" onclick="closeModal()">Okay</button>
+        </div>
+    </div>
+</div>
+
+    
+    <style>
+        /* Modal styles */
+        .modal {
+            display: none; /* Hidden by default */
+            position: fixed; /* Stay in place */
+            z-index: 1; /* Sit on top */
+            left: 0;
+            top: 0;
+            width: 100%; /* Full width */
+            height: 100%; /* Full height */
+            overflow: auto; /* Enable scroll if needed */
+            background-color: rgba(0, 0, 0, 0.5); /* Dark background with opacity */
+        }
+    
+        .modal-content {
+            background-color: #fff;
+            margin: 10% auto; /* Center modal */
+            padding: 20px;
+            border-radius: 8px; /* Rounded corners */
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2); /* Subtle shadow for depth */
+            width: 70%; /* Responsive width */
+            max-width: 500px; /* Max width for larger screens */
+        }
+    
+        .modal-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 1px solid #ddd;
+            padding-bottom: 15px;
+        }
+    
+        .modal-header h2 {
+            margin: 0;
+            font-size: 1.5em;
+            color: #333; /* Darker text for better contrast */
+        }
+    
+        .close {
+            color: #aaa;
+            font-size: 24px;
+            font-weight: bold;
+            cursor: pointer;
+        }
+    
+        .close:hover,
+        .close:focus {
+            color: #ff4444; /* Change color on hover */
+            text-decoration: none;
+        }
+    
+        .modal-body {
+            margin: 20px 0; /* Space between header and body */
+            font-size: 1em;
+            color: #555; /* Subtle gray text */
+            text-align: center; /* Center align the message */
+        }
+    
+        .modal-button {
+            background-color: #007bff; /* Bootstrap primary color */
+            color: white; /* White text */
+            border: none; /* No border */
+            padding: 10px 20px; /* Space around button */
+            border-radius: 5px; /* Rounded corners */
+            cursor: pointer; /* Pointer on hover */
+            transition: background-color 0.3s; /* Smooth transition */
+            margin: 5px; /* Space between buttons */
+        }
+    
+        .modal-button:hover {
+            background-color: #0056b3; /* Darker blue on hover */
+        }
+    
+        .copy-button {
+            background-color: #28a745; /* Green color for copy button */
+        }
+    
+        .copy-button:hover {
+            background-color: #218838; /* Darker green on hover */
+        }
+    </style>
+    
+    
+    <script>
+        // Function to send OTP after entering the phone number
+        function sendOTP() {
+            const phoneNumber = document.getElementById('phone').value;
+    
+            if (isValidPhoneNumber(phoneNumber)) {
+                const generatedOTP = generateOTP(); // Generate random 6-digit OTP
+                localStorage.setItem('otp', generatedOTP);
+    
+                // Show OTP in a modal instead of an alert
+                showModal(`OTP sent to your phone number. Your OTP code is: ${generatedOTP}`);
+                
+                // Disable the phone input and enable the verification input
+                document.getElementById('phone').disabled = true;
+                document.getElementById('verification-code').disabled = false;
+            } else {
+                showMessage('Please enter a valid 11-digit phone number.', 'red');
+            }
+        }
+    
+        // Helper function to validate phone number
+        function isValidPhoneNumber(phoneNumber) {
+            return phoneNumber.length === 11 && /^[0-9]+$/.test(phoneNumber);
+        }
+    
+        // Helper function to generate a random 6-digit OTP
+        function generateOTP() {
+            return Math.floor(100000 + Math.random() * 900000);
+        }
+    
+        // Function to show the modal with a message
+        function showModal(message) {
+            const modal = document.getElementById('otpModal');
+            const modalMessage = document.getElementById('modalMessage');
+            modalMessage.textContent = message; // Set the message in the modal
+            modal.style.display = 'block'; // Show the modal
+        }
+    
+        // Function to close the modal
+        function closeModal() {
+            const modal = document.getElementById('otpModal');
+            modal.style.display = 'none'; // Hide the modal
+        }
+    
+        // Function to copy OTP to clipboard
+        function copyOTP() {
+            const otp = localStorage.getItem('otp');
+            if (otp) {
+                navigator.clipboard.writeText(otp).then(() => {
+                    showMessage("OTP copied to clipboard!", "green");
+                    closeModal(); // Close the modal after copying
+                }).catch(err => {
+                    showMessage("Failed to copy OTP.", "red");
+                });
+            }
+        }
+    </script>
+    
+
+<div id="message"></div> <!-- Message display for feedback -->
+
+    <button type="submit" class="register-btn">Register Now</button>
+    <a href="login.html" class="login-link">Login Account</a>
+</form>
+
+<script>
+    // Function to generate a random invitation code and link
+    function generateInviteInfo() {
+        const inviteCode = Math.random().toString(36).substr(2, 8).toUpperCase(); // Generates a random code
+        const inviteLink = `https://valeries-clothing-style.github.io/VV/index.html?inviteCode=${inviteCode}`; // Link with the generated code
+        localStorage.setItem('inviteCode', inviteCode);
+        localStorage.setItem('inviteLink', inviteLink);
+        return { inviteCode, inviteLink };
+    }
+
+    document.addEventListener("DOMContentLoaded", function() {
+        // Auto-populate invite code if present in URL
+        function getUrlParameter(name) {
+            const urlParams = new URLSearchParams(window.location.search);
+            return urlParams.get(name) || '';
+        }
+
+        const inviteCode = getUrlParameter('inviteCode');
+        const inviteCodeInput = document.getElementById('invitation-code');
+        if (inviteCode && inviteCodeInput) {
+            inviteCodeInput.value = inviteCode;
+            inviteCodeInput.readOnly = true; // Lock the invitation code field
+        }
+    });
+
+    // Toggle password visibility function
+    function togglePasswordVisibility(inputId, toggleIconId) {
+        const passwordInput = document.getElementById(inputId);
+        const toggleIcon = document.getElementById(toggleIconId);
+        
+        if (passwordInput.type === "password") {
+            passwordInput.type = "text";
+            toggleIcon.src = "eye-slash-icon.png";
+        } else {
+            passwordInput.type = "password";
+            toggleIcon.src = "eye-icon.png";
+        }
+    }
+
+    // Function to show messages with animations
+    function showMessage(message, color) {
+        const messageElement = document.getElementById('message');
+        messageElement.textContent = message;
+        messageElement.style.color = color;
+
+        messageElement.classList.add('shake');
+        setTimeout(() => messageElement.classList.remove('shake'), 500);
+    }
+
+    document.getElementById('registerForm').addEventListener('submit', function(e) {
+        e.preventDefault();
+
+        const phoneInput = document.getElementById('phone').value.trim();
+        const password = document.getElementById('password').value;
+        const confirmPassword = document.getElementById('confirm-password').value;
+        const inviteCode = document.getElementById('invitation-code').value.trim();
+
+        // Check for an invitation code
+        if (!inviteCode) {
+            showMessage("An invitation code is required to register.", "red");
+            return;
+        }
+
+        const phoneRegex = /^[0-9]{11}$/;
+        if (!phoneRegex.test(phoneInput)) {
+            showMessage("Please enter a valid 11-digit phone number.", "red");
+            return;
+        }
+
+        const registeredNumberOnDevice = localStorage.getItem('registeredNumber');
+        if (registeredNumberOnDevice && registeredNumberOnDevice !== phoneInput) {
+            showMessage("Your device is already linked to a phone number. For security, only one number can be registered per device.", "red");
+            return;
+        } else if (registeredNumberOnDevice) {
+            showMessage("This phone number is already registered on this device.", "red");
+            return;
+        }
+
+        if (password !== confirmPassword) {
+            showMessage("Passwords do not match.", "red");
+            return;
+        }
+
+        localStorage.setItem('registeredNumber', phoneInput);
+        showMessage("Registration successful!", "green");
+
+        document.getElementById('phone').value = ''; 
+        document.getElementById('password').value = ''; 
+        document.getElementById('confirm-password').value = ''; 
+        document.getElementById('invitation-code').value = ''; 
+        document.getElementById('verification-code').value = ''; 
+
+        window.location.href = 'login.html'; 
+    });
+</script>
+
+    
+    
+
+
+    
+    
+    <script src="scripts.js"></script>
+</body>
+</html>

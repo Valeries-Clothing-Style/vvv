@@ -1,0 +1,358 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Invite Promotion</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f3f3f3;
+      margin: 0;
+      padding: 0;
+    }
+    .container {
+      background: rgba(255, 255, 255, 0.2); /* Translucent background */
+      -webkit-backdrop-filter: blur(10px); /* Apply blur effect */
+      backdrop-filter: blur(5px); /* Support for Safari */
+      border-radius: 10px;
+      border: 1px solid rgba(255, 255, 255, 0.3); /* Light border to enhance glass effect */
+      box-shadow: 0 4px 6px rgba(255, 255, 255, 0.1); /* Subtle shadow for depth */
+      max-width: 500px;
+      margin: auto;
+      padding: 40px;
+      margin-bottom: 95px;
+      margin-top: 5px;
+    }
+
+    .section {
+      padding: 20px;
+      border-bottom: 2px solid #ddd;
+    }
+    h2 {
+      font-size: 24px;
+      color: #ffffff;
+      margin-bottom: 30px;
+      margin-top: -10px;
+    }
+    p{
+        color: #ffffff;
+    }
+    .copy-section, .reward-section {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 10px;
+    }
+    .copy-section input {
+      width: 60%;
+      padding: 7px;
+      margin-right: 10px;
+      border: 1px solid #ddd;
+      border-radius: 8px;
+    }
+    .copy-section button {
+      padding: 8px 15px;
+      border: none;
+      background-color: #4CAF50;
+      color: white;
+      border-radius: 8px;
+      cursor: pointer;
+    }
+    .copy-section button:hover {
+      background-color: #45a049;
+    }
+    .reward-section {
+      display: flex;
+      justify-content: space-around;
+      text-align: center;
+    }
+    .reward-item {
+      flex: 1;
+    }
+    .reward-item span {
+      display: block;
+      font-size: 18px;
+      color: #ffffff;
+    }
+    .button-section {
+      text-align: center;
+      margin-top: 15px;
+    }
+    .button-section button {
+      padding: 10px 20px;
+      background-color: #f39c12;
+      color: white;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+    .button-section button:hover {
+      background-color: #e67e22;
+    }
+    .policy-section img {
+      display: inline-block;
+      vertical-align: middle;
+      margin-right: 8px;
+    }
+    .policy-section h3 {
+      display: inline-block;
+      font-size: 18px;
+      color: #ffffff;
+    }
+    .tasks {
+      margin-top: 15px;
+    }
+    .tasks div {
+      border: 1px solid #ddd;
+      padding: 10px;
+      border-radius: 5px;
+      margin-bottom: 10px;
+    }
+    .tasks h4 {
+      margin: 0 0 5px 0;
+      font-size: 16px;
+    }
+    .task-item {
+      display: flex;
+      justify-content: space-between;
+      font-size: 14px;
+      color: #fffefe;
+    }
+    .unfinish {
+      color: red;
+    }
+    #backgroundVideo {
+        position: fixed;
+        top: 0;
+        left: 0;
+        min-width: 100%;
+        min-height: 100%;
+        z-index: -1; /* Send the video to the background */
+        object-fit: cover; /* Ensure the video covers the entire screen */
+        filter: brightness(10%);  
+    }         
+</style>
+</head>
+<body>
+
+<video autoplay muted loop id="backgroundVideo">
+    <source src="video-bg.mp4" type="video/mp4">
+    Your browser does not support the video tag.
+</video>
+
+<div class="container">
+  <!-- Invite Promotion Section -->
+  <div class="section">
+      <h2>Invite Promotion</h2>
+      <p>Invite friends to register, and automatically get PHP 2.00 for each invitation registration</p>
+      <div class="copy-section">
+        <span style="color: rgb(0, 255, 0);">Code:</span>
+          <input type="text" id="inviteCode" value="YOUR_CODE_HERE" readonly>
+          <button onclick="copyText('inviteCode')">Copy</button>
+      </div>
+      <div class="copy-section">
+        <span style="color: rgb(0, 255, 0);">Link:</span>
+          <input type="text" id="inviteLink" value="YOUR_LINK_HERE" readonly>
+          <button onclick="copyText('inviteLink')">Copy</button>
+      </div>
+  </div>
+
+  <!-- Invitation Rewards Section -->
+  <div class="section">
+      <h2>Invitation Rewards</h2>
+      <p id="rewardMessage">Every time you invite someone to register, you will receive a bonus of PHP 2, up to a maximum of PHP 20.</p>
+      <div class="reward-section">
+          <div class="reward-item" id="registeredUsers" style="color: rgb(171, 169, 169);">
+              <span>0</span>
+              Registered 
+          </div>
+          <div class="reward-item" id="receivedAmount" style="color: rgb(171, 169, 169);">
+              <span>0.00</span>
+              Received
+          </div>
+          <div class="reward-item" id="highestReward" style="color: rgb(171, 169, 169);">
+              <span>20</span>
+              Highest Reward
+          </div>
+      </div>
+      <div class="button-section">
+          <button onclick="getInvitationRewards()">Get it right now</button>
+      </div>
+  </div>
+
+  <!-- CEO Recruitment Policy Section -->
+  <div class="section policy-section">
+      <img src="star.png" alt="Star Icon" width="20" height="20">
+      <h3>CEO Recruitment Policy</h3>
+      <p>After completing the following tasks, you can contact the online customer service to receive the reward. Complete all tasks to be promoted to the company team CEO! You can get a monthly salary of PHP 150,000</p>
+      <div class="tasks" style="color: rgb(171, 169, 169);">
+          <div>
+              <h4>Agent Salary 100</h4>
+              <div class="task-item">
+                  Invite 10 valid users <span>[<span id="validUsers10">0</span>/10]</span>
+              </div>
+              <div class="task-item">
+                  Recharge 1500 <span>[0/1500]</span>
+              </div>
+          </div>
+          <div>
+              <h4>Agent Salary 210</h4>
+              <div class="task-item">
+                  Invite 20 valid users <span>[<span id="validUsers20">0</span>/20]</span>
+              </div>
+              <div class="task-item">
+                  Recharge 2000 <span>[0/3000]</span>
+              </div>
+          </div>
+          <div>
+              <h4>Agent Salary 1600</h4>
+              <div class="task-item">
+                  Invite 40 valid users <span>[<span id="validUsers40">0</span>/40]</span>
+              </div>
+              <div class="task-item">
+                  Recharge 20000 <span>[0/20000]</span>
+              </div>
+          </div>
+      </div>
+  </div>
+</div>
+
+<script>
+  const MAX_REWARD = 20; // Define the maximum reward
+
+  // Function to generate a random invitation code and link
+  function generateInviteInfo() {
+      const inviteCode = Math.random().toString(36).substr(2, 8).toUpperCase(); // Generates a random code
+      const inviteLink = `https://valeries-clothing-style.github.io/vvv/index.html?inviteCode=${inviteCode}`; // Link with the generated code
+      localStorage.setItem('inviteCode', inviteCode);
+      localStorage.setItem('inviteLink', inviteLink);
+      return { inviteCode, inviteLink };
+  }
+  
+  // Function to update invitation rewards
+  function updateInvitationRewards() {
+      const registeredUsers = parseInt(localStorage.getItem('registeredUsers')) || 0;
+      const totalReceived = registeredUsers * 2; // Each registration gives PHP 2
+      const highestReward = MAX_REWARD;
+  
+      document.getElementById('registeredUsers').querySelector('span').textContent = registeredUsers;
+      document.getElementById('receivedAmount').querySelector('span').textContent = totalReceived.toFixed(2);
+      document.getElementById('highestReward').querySelector('span').textContent = highestReward;
+  }
+  
+  // Function to simulate getting invitation rewards
+  function getInvitationRewards() {
+      let registeredUsers = parseInt(localStorage.getItem('registeredUsers')) || 0;
+      if (registeredUsers < MAX_REWARD / 2) {
+          registeredUsers++;
+          localStorage.setItem('registeredUsers', registeredUsers);
+          updateInvitationRewards();
+      } else {
+          alert("You've reached the maximum reward limit!");
+      }
+  }
+  
+  document.addEventListener("DOMContentLoaded", function () {
+      // Check if invite info is already in localStorage
+      let inviteCode = localStorage.getItem('inviteCode');
+      let inviteLink = localStorage.getItem('inviteLink');
+  
+      // If not, generate new invite info
+      if (!inviteCode || !inviteLink) {
+          const inviteInfo = generateInviteInfo();
+          inviteCode = inviteInfo.inviteCode;
+          inviteLink = inviteInfo.inviteLink;
+      }
+  
+      // Set the values in the input fields
+      document.getElementById('inviteCode').value = inviteCode;
+      document.getElementById('inviteLink').value = inviteLink;
+  
+      // Update invitation rewards display
+      updateInvitationRewards();
+  });
+  
+  // Function to copy text from input field using Clipboard API
+  function copyText(elementId) {
+      const inputElement = document.getElementById(elementId);
+      if (inputElement) {
+          navigator.clipboard.writeText(inputElement.value)
+              .then(() => alert("Copied: " + inputElement.value))
+              .catch(err => console.error("Failed to copy text: ", err));
+      }
+  }  
+</script>
+
+
+
+
+  <footer class="footer">
+    <div class="footer-icons">
+        <a href="dashboard.html" class="footer-item">
+            <img src="home-icon.png" alt="Home" class="footer-icon">
+            <span class="icon-label">Home</span>
+        </a>
+        <a href="invest.html" class="footer-item">
+            <img src="invest-icon.png" alt="Invest" class="footer-icon">
+            <span class="icon-label">Invest</span>
+        </a>
+        <a href="teams.html" class="footer-item">
+            <img src="team-icon.png" alt="Teams" class="footer-icon">
+            <span class="icon-label">Teams</span>
+        </a>
+        <a href="mine.html" id="logoutLink" class="footer-item">
+            <img src="mine-icon.png" alt="Mine" class="footer-icon">
+            <span class="icon-label">Mine</span>
+        </a>
+    </div>
+</footer>
+<style>
+    
+    
+    .footer {
+        background-color: rgba(0, 128, 0, 0.3); /* Semi-transparent green for glass effect */
+        padding: 10px 0;
+        position: fixed;
+        bottom: 0;
+        width: 100%;
+        border-radius: 15px;
+        backdrop-filter: blur(10px); /* Frosted glass blur effect */
+        box-shadow: 0 4px 10px rgba(0, 255, 0, 0.4), 0 2px 20px rgba(0, 128, 0, 0.6); /* Green glowing effect */
+        border: 1px solid rgba(255, 255, 255, 0.2); /* Light border for glass effect */
+        transition: box-shadow 0.3s ease; /* Smooth transition effect */
+    }
+    
+    .footer:hover {
+        box-shadow: 0 6px 15px rgba(0, 255, 0, 0.6), 0 4px 25px rgba(0, 128, 0, 0.8); /* Brighter shine on hover */
+    }
+    
+    .footer-icons {
+        display: flex;
+        justify-content: space-around;
+    }
+    
+    .footer-item {
+        display: flex;
+        flex-direction: column; /* Stack icon and label vertically */
+        align-items: center; /* Center the icon and label */
+        text-decoration: none; /* Remove underline from links */
+    }
+    
+    .footer-icon {
+        width: 40px;
+        height: 40px;
+        filter: brightness(0) invert(1); /* Make the icon white */
+    }
+    
+    .icon-label {
+        color: white; /* White text for the labels */
+        font-size: 14px; /* Adjust size of the label text */
+        margin-top: 5px; /* Space between icon and label */
+    }
+</style>
+
+  
+
+</body>
+</html>

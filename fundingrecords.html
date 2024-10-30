@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Funding Records</title>
+    <style>
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+        th, td {
+            border: 1px solid #ccc;
+            padding: 10px;
+            text-align: left;
+        }
+        th {
+            background-color: #f4f4f4;
+        }
+        .button {
+            padding: 10px 15px;
+            margin-top: 20px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            cursor: pointer;
+        }
+        .delete-button {
+            background-color: #f44336; /* Red */
+            color: white;
+            border: none;
+            cursor: pointer;
+            padding: 5px 10px;
+        }
+    </style>
+</head>
+<body>
+
+<h2>Funding Records</h2>
+<table>
+    <thead>
+        <tr>
+            <th>Source</th>
+            <th>Amount</th>
+            <th>Date</th>
+            <th>Action</th>
+        </tr>
+    </thead>
+    <tbody id="funding-records">
+        <tr>
+            <td colspan="4">No funding records found.</td>
+        </tr>
+    </tbody>
+</table>
+
+<!-- Dashboard Button -->
+<button class="button" onclick="goToDashboard()">Go to Dashboard</button>
+
+<script>
+    // Function to add a new funding record
+    function addFundingRecord(source, amount) {
+        const records = JSON.parse(localStorage.getItem('fundingRecords')) || [];
+        const date = new Date().toLocaleString();
+        records.push({ source, amount, date });
+        localStorage.setItem('fundingRecords', JSON.stringify(records));
+        displayFundingRecords(); // Refresh the display after adding a new record
+    }
+
+    // Function to display funding records
+    function displayFundingRecords() {
+        const records = JSON.parse(localStorage.getItem('fundingRecords')) || [];
+        const fundingRecordsTable = document.getElementById('funding-records');
+        fundingRecordsTable.innerHTML = ''; // Clear previous records
+
+        if (records.length === 0) {
+            fundingRecordsTable.innerHTML = '<tr><td colspan="4">No funding records found.</td></tr>';
+        } else {
+            records.forEach((record, index) => {
+                const row = document.createElement('tr');
+                row.innerHTML = `
+                    <td>${record.source}</td>
+                    <td>₱${parseFloat(record.amount).toFixed(2)}</td>
+                    <td>${record.date}</td>
+                    <td><button class="delete-button" onclick="deleteFundingRecord(${index})">Delete</button></td>
+                `;
+                fundingRecordsTable.appendChild(row);
+            });
+        }
+    }
+
+    // Function to collect amounts from other pages
+    function collectCompleteFunding() {
+        // Gather amounts from localStorage
+        const treasureAmount = parseFloat(localStorage.getItem('treasureAmount')) || 0;
+        const signInReward = parseFloat(localStorage.getItem('signInReward')) || 0;
+        const dailyIncome = parseFloat(localStorage.getItem('dailyIncome')) || 0; // Fetch daily income from localStorage
+
+        // Add records if they are greater than zero and not already in localStorage
+        const existingRecords = JSON.parse(localStorage.getItem('fundingRecords')) || [];
+
+        if (treasureAmount > 0 && !existingRecords.some(record => record.source === 'Treasure')) {
+            addFundingRecord('Treasure', treasureAmount);
+        }
+        if (signInReward > 0 && !existingRecords.some(record => record.source === 'Sign In Reward')) {
+            addFundingRecord('Sign In Reward', signInReward);
+        }
+        if (dailyIncome > 0 && !existingRecords.some(record => record.source === 'Daily Income')) {
+            addFundingRecord('Daily Income', dailyIncome);
+        }
+    }
+
+    // Function to delete a funding record
+    function deleteFundingRecord(index) {
+        const records = JSON.parse(localStorage.getItem('fundingRecords')) || [];
+        records.splice(index, 1); // Remove the record at the specified index
+        localStorage.setItem('fundingRecords', JSON.stringify(records)); // Update localStorage
+        displayFundingRecords(); // Refresh the display after deletion
+    }
+
+    // Function to navigate to the dashboard
+    function goToDashboard() {
+        window.location.href = 'dashboard.html'; // Adjust the path to your actual dashboard page
+    }
+
+    // Initialize the page
+    document.addEventListener('DOMContentLoaded', () => {
+        displayFundingRecords(); // Display existing funding records
+        collectCompleteFunding(); // Collect and log amounts from different sources
+    });
+</script>
+
+
+
+
+
+
+
+
+    <footer class="footer">
+        <div class="footer-icons">
+            <a href="dashboard.html" class="footer-item">
+                <img src="home-icon.png" alt="Home" class="footer-icon">
+                <span class="icon-label">Home</span>
+            </a>
+            <a href="invest.html" class="footer-item">
+                <img src="invest-icon.png" alt="Invest" class="footer-icon">
+                <span class="icon-label">Invest</span>
+            </a>
+            <a href="teams.html" class="footer-item">
+                <img src="team-icon.png" alt="Teams" class="footer-icon">
+                <span class="icon-label">Teams</span>
+            </a>
+            <a href="mine.html" id="logoutLink" class="footer-item">
+                <img src="mine-icon.png" alt="Mine" class="footer-icon">
+                <span class="icon-label">Mine</span>
+            </a>
+        </div>
+    </footer>
+    <style>
+        
+        
+        .footer {
+            background-color: rgba(0, 128, 0, 0.3); /* Semi-transparent green for glass effect */
+            padding: 10px 0;
+            position: fixed;
+            bottom: 0;
+            width: 100%;
+            border-radius: 15px;
+            backdrop-filter: blur(10px); /* Frosted glass blur effect */
+            box-shadow: 0 4px 10px rgba(0, 255, 0, 0.4), 0 2px 20px rgba(0, 128, 0, 0.6); /* Green glowing effect */
+            border: 1px solid rgba(255, 255, 255, 0.2); /* Light border for glass effect */
+            transition: box-shadow 0.3s ease; /* Smooth transition effect */
+        }
+        
+        .footer:hover {
+            box-shadow: 0 6px 15px rgba(0, 255, 0, 0.6), 0 4px 25px rgba(0, 128, 0, 0.8); /* Brighter shine on hover */
+        }
+        
+        .footer-icons {
+            display: flex;
+            justify-content: space-around;
+        }
+        
+        .footer-item {
+            display: flex;
+            flex-direction: column; /* Stack icon and label vertically */
+            align-items: center; /* Center the icon and label */
+            text-decoration: none; /* Remove underline from links */
+        }
+        
+        .footer-icon {
+            width: 40px;
+            height: 40px;
+            filter: brightness(0) invert(1); /* Make the icon white */
+        }
+        
+        .icon-label {
+            color: white; /* White text for the labels */
+            font-size: 14px; /* Adjust size of the label text */
+            margin-top: 5px; /* Space between icon and label */
+        }
+    </style>
+</body>
+</html>
+
+
+

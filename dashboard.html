@@ -1,0 +1,1174 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard - VeilVest</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/boxicons@latest/css/boxicons.min.css">
+    <style>
+    
+        .sidebar {
+            width: 250px;
+            background-color: #333;
+            color: white;
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .sidebar h2 {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+        
+        .sidebar ul {
+            list-style-type: none;
+            padding: 0;
+        }
+        
+        .sidebar ul li {
+            margin: 15px 0;
+        }
+        
+        .sidebar a {
+            color: white;
+            text-decoration: none;
+            font-size: 18px;
+            transition: background-color 0.3s;
+            padding: 10px;
+            border-radius: 5px;
+        }
+        
+        .sidebar a:hover, .sidebar a.active {
+            background-color: #555;
+        }
+        
+        .main-content {
+            flex-grow: 1;
+            padding: 20px;
+            background-color: transparent;
+        }
+        
+        .main-content h1 {
+            color: #ffffff;
+            margin-bottom: 20px;
+        }
+        .main-content p {
+            color: #ffffff;
+            margin-bottom: 20px;
+        }
+        
+        .statistics {
+            display: flex;
+            justify-content: space-around;
+            margin-top: 20px;
+        }
+        
+        .stat-card {
+            background-color: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            width: 30%;
+            text-align: center;
+        }
+        
+        .stat-card h3 {
+            margin-bottom: 10px;
+        }
+        
+ 
+
+
+
+
+            
+
+
+
+
+
+
+
+
+
+
+                /* Style the chatbot button to be an icon */
+                .chatbot-button {
+                    background: none; /* Remove default button styling */
+                    border: none;     /* Remove border */
+                    padding: 0;       /* Remove padding */
+                    cursor: pointer;  /* Make the button clickable */
+                    position: fixed;
+                    bottom: 100px;
+                    right: 20px;
+                    z-index: 1000; /* Make sure it's above other content */
+                }
+                
+                /* Style the chatbot icon */
+                .chatbot-icon {
+                    width: 60px;  /* Adjust the size of the icon */
+                    height: 60px;
+                }
+                                /* Chatbox */
+                                .chatbox {
+                                    display: none; /* Hidden by default */
+                                    position: fixed;
+                                    bottom: 100px;
+                                    right: 20px;
+                                    width: 350px;
+                                    background-color: transparent; 
+                                    background-color: rgba(0, 48, 0, 0.3); /* Semi-transparent green for glass effect */
+                                    backdrop-filter: blur(10px); /* Frosted glass blur effect */
+                                    border-radius: 10px;
+                                    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.5); /* Stronger shadow */
+                                    z-index: 1000;
+                                }
+                                
+                                
+                                .chatbox-header {
+                                    background-color: white;
+                                    color: rgb(0, 64, 0);
+                                    padding: 15px;
+                                    border-radius: 10px 10px 0 0;
+                                    display: flex;
+                                    justify-content: space-between;
+                                    align-items: center;
+                                }
+                                
+                                .chatbox-body {
+                                    padding: 15px;
+                                    height: 300px;
+                                    overflow-y: auto;
+                                }
+                                
+                                .chatbox-input {
+                                    display: flex;
+                                    padding: 15px;
+                                    background-color: #f1f1f1;
+                                }
+                                
+                                .chatbox-input input {
+                                    flex: 1;
+                                    padding: 10px;
+                                    border-radius: 8px;
+                                    border: 1px solid #ccc;
+                                }
+                                
+                                .chatbox-input button {
+                                    background-color:rgb(0, 68, 0);
+                                    color: white;
+                                    border: none;
+                                    padding: 10px 15px;
+                                    border-radius: 5px;
+                                    margin-left: 10px;
+                                    cursor: pointer;
+                                }
+                                
+                                .faq-button {
+                                    display: block;
+                                    background-color: #f1f1f1;
+                                    color: #333;
+                                    border: none;
+                                    padding: 10px;
+                                    margin: 5px 0;
+                                    cursor: pointer;
+                                    width: 100%;
+                                    text-align: left;
+                                    font-size: 14px;
+                                }
+                                
+                                .faq-button:hover {
+                                    background-color: #ddd;
+                                }
+                                
+                                .chatbox-message {
+                                    padding: 10px;
+                                    margin: 10px 0;
+                                    border-radius: 8px;
+                                    width: fit-content;
+                                }
+                                
+                                .bot-message {
+                                    background-color: rgb(131, 255, 131);
+                                    color: #000000;
+                                }
+                                
+                                .user-message {
+                                    background-color: white;
+                                    color: rgb(0, 0, 0);
+                                    align-self: flex-end;
+                                }
+                                
+                                .close-chatbox {
+                                    background: none;
+                                    border: none;
+                                    color: rgb(249, 103, 103);
+                                    font-size: 24px;
+                                    cursor: pointer;
+                                }
+                                
+                                .close-chatbox:hover {
+                                    color: red;
+                                }
+                                .recharge-instructions {
+                                    margin: 20px; /* Spacing around the container */
+                                    font-family: Arial, sans-serif; /* Clean, readable font */
+                                    color: #000000; /* Dark text color */
+                                    font-size: 14px; /* Smaller text size */
+                                }
+                                
+                                .recharge-instructions h3 {
+                                    text-align: center; /* Center the heading */
+                                    margin-bottom: 10px; /* Space below the heading */
+                                    font-size: 16px; /* Slightly larger font size for the heading */
+                                }
+                                
+                                .recharge-instructions ol {
+                                    padding-left: 20px; /* Indent the ordered list */
+                                }
+                                
+                                .recharge-instructions li {
+                                    margin-bottom: 10px; /* Space between each step */
+                                    line-height: 1.0; /* Increased line height for better readability */
+                                }
+                                #backgroundVideo {
+                                    position: fixed;
+                                    top: 0;
+                                    left: 0;
+                                    min-width: 100%;
+                                    min-height: 100%;
+                                    z-index: -1; /* Send the video to the background */
+                                    object-fit: cover; /* Ensure the video covers the entire screen */
+                                    filter: brightness(20%);  
+                                }        
+                                .typing-indicator-container {
+                                    display: flex;
+                                    align-items: center;
+                                }
+                                
+                                .typing-indicator {
+                                    width: 7px;
+                                    height: 7px;
+                                    border-radius: 50%;
+                                    background-color: gray;
+                                    margin-left: 2px;
+                                    margin-top: 10px;
+                                    animation: wave 1s infinite ease-in-out; /* Apply wave animation */
+                                }
+                                
+                                /* Stagger the animation for each dot */
+                                .typing-indicator:nth-child(1) {
+                                    animation-delay: 0s; /* First dot */
+                                }
+                                .typing-indicator:nth-child(2) {
+                                    animation-delay: 0.2s; /* Second dot */
+                                }
+                                .typing-indicator:nth-child(3) {
+                                    animation-delay: 0.4s; /* Third dot */
+                                }
+                                
+                                /* Wave animation */
+                                @keyframes wave {
+                                    0%, 100% {
+                                        transform: translateY(0);
+                                    }
+                                    50% {
+                                        transform: translateY(-5px); /* Move up to create wave effect */
+                                    }
+                                }
+                                
+                                    </style>
+                                </head>
+                                <body>
+                                    <video autoplay muted loop id="backgroundVideo">
+                                        <source src="video-bg.mp4" type="video/mp4">
+                                        Your browser does not support the video tag.
+                                    </video>
+    
+                  
+                    <!-- Chatbot button with image icon -->
+                    <button class="chatbot-button" id="openChatbot">
+                        <img src="chatbot-icon.png" alt="Chatbot Icon" class="chatbot-icon"> <!-- Replace with the actual path to your icon image -->
+                    </button>
+    
+        <div class="chatbox" id="chatbox">
+            <div class="chatbox-header">
+                <span>FAQs Chatbot</span>
+                <button class="close-chatbox" id="closeChatbot">&times;</button>
+            </div>
+    
+            <div class="chatbox-body" id="chatboxBody">
+                <div class="chatbox-message bot-message">
+                    Hello! How can I help you today? Choose an option below or type your question.
+                </div>
+            </div>
+                    
+                            <div class="chatbox-faqs">
+                                <button class="faq-button" onclick="sendFaq('What is the minimum investment amount?')">What is the minimum investment amount?</button>
+                                <button class="faq-button" onclick="sendFaq('How can I withdraw my funds?')">How can I withdraw my funds?</button>
+                                <button class="faq-button" onclick="sendFaq('What are the available investment plans?')">What are the available investment plans?</button>
+                                <button class="faq-button" onclick="sendFaq('How long does it take to process withdrawals?')">How long does it take to process withdrawals?</button>
+                            </div>
+                    
+                            <div class="chatbox-input">
+                                <input type="text" id="userInput" placeholder="Type your message..." />
+                                <button id="sendMessageButton">Send</button>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    
+          
+<script> 
+    // Open and close chatbot
+    document.getElementById("openChatbot").addEventListener("click", function() {
+        document.getElementById("chatbox").style.display = "block";
+    });
+    
+    document.getElementById("closeChatbot").addEventListener("click", function() {
+        document.getElementById("chatbox").style.display = "none";
+    });
+    
+    // Function to handle FAQs selection
+    function sendFaq(faq) {
+        addMessage(faq, 'user-message'); // Add user's message
+        displayTypingIndicator(); // Show typing indicator
+        setTimeout(function() {
+            removeTypingIndicator(); // Remove typing indicator
+            autoReply(faq); // Automatically reply after a delay
+        }, 3000);
+    }
+    
+    document.getElementById('sendMessageButton').addEventListener('click', function() {
+        const userMessage = document.getElementById('userInput').value;
+        if (userMessage.trim() === "") return;
+    
+        appendUserMessage(userMessage);
+        displayTypingIndicator();
+    
+        // Simulate typing and bot response
+        setTimeout(() => {
+            removeTypingIndicator();
+            appendBotMessage("This is a response to your message: " + userMessage);
+        }, 3000);  // 2 seconds delay to simulate typing
+    });   
+    function appendUserMessage(message) {
+        const chatboxBody = document.getElementById('chatboxBody');
+        const userMessageElement = document.createElement('div');
+        userMessageElement.className = 'chatbox-message user-message';
+        userMessageElement.innerText = message;
+        chatboxBody.appendChild(userMessageElement);
+        chatboxBody.scrollTop = chatboxBody.scrollHeight; // Auto scroll to bottom
+    }   
+    function appendBotMessage(message) {
+        const chatboxBody = document.getElementById('chatboxBody');
+        const botMessageElement = document.createElement('div');
+        botMessageElement.className = 'chatbox-message bot-message';
+        botMessageElement.innerHTML = message; // Allow HTML content
+        chatboxBody.appendChild(botMessageElement);
+        chatboxBody.scrollTop = chatboxBody.scrollHeight; // Auto scroll to bottom
+    }  
+    function displayTypingIndicator() {
+        const chatboxBody = document.getElementById('chatboxBody');
+        const typingIndicator = document.createElement('div');
+        typingIndicator.className = 'typing-indicator-container';
+        typingIndicator.id = 'typingIndicator';
+        typingIndicator.innerHTML = `
+            <span class="typing-indicator"></span>
+            <span class="typing-indicator"></span>
+            <span class="typing-indicator"></span>
+        `;
+        chatboxBody.appendChild(typingIndicator);
+        chatboxBody.scrollTop = chatboxBody.scrollHeight; // Auto scroll to bottom
+    }
+    function removeTypingIndicator() {
+        const typingIndicator = document.getElementById('typingIndicator');
+        if (typingIndicator) {
+            typingIndicator.remove();
+        }
+    }   
+    function addMessage(text, className) {
+        const message = document.createElement("div");
+        message.className = "chatbox-message " + className;
+        message.innerHTML = text; // Use innerHTML to render HTML content
+        document.getElementById("chatboxBody").appendChild(message);
+        document.getElementById("chatboxBody").scrollTop = document.getElementById("chatboxBody").scrollHeight;
+    }   
+    // Auto-reply based on user input (Investment Platform)
+    function autoReply(userInput) {
+        let reply = '';
+    
+        switch (userInput.trim().toLowerCase()) {  // Using trim() to remove extra spaces
+            case 'what is the minimum investment?':
+            case 'minimum investment?':
+            case 'what is the minimum investment amount?':
+            case 'what’s the minimum investment?':  // Another phrasing variation
+            reply = `
+            <div class="recharge-instructions">
+                <h3>How to Recharge Your Account Step by Step:</h3>
+                <ol>
+                    <li><strong>Select an amount to recharge</strong> or enter a custom amount (minimum ₱300).</li>
+                    <li><strong>Choose your preferred payment method</strong> (GCash or PayPal).</li>
+                    <li><strong>For GCash users:</strong>
+                        <ul>
+                            <li>Scan the QR code above or click the provided link to open your GCash app.</li>
+                        </ul>
+                    </li>
+                    <li><strong>Enter the payment details</strong> and confirm the payment.</li>
+                    <li><strong>Once payment is confirmed,</strong> click "Complete Recharge" to finalize your transaction.</li>
+                    <li><strong>Once the payment is successful,</strong> your recharge amount will be displayed in your balance.</li>
+                </ol>
+            </div>
+        `;
+        break;
+            case 'how can i withdraw my funds?':
+                reply = 'You can withdraw your funds through the "Withdraw" section of your account.';
+                break;
+            case 'what are the available investment plans?':
+                reply = 'We offer various investment plans, including short-term and long-term options.';
+                break;
+            case 'how long does it take to process withdrawals?':
+                reply = 'Withdrawals are typically processed within 24-48 hours.';
+                break;
+            default:
+                reply = 'Sorry, I didn’t understand that. Please try again or choose one of the available FAQs.';
+        }
+        appendBotMessage(reply);
+    }
+</script>
+
+
+<header class="header">
+    <h1>VeilVest</h1>
+</header>
+<style>
+    .header h1 {
+        margin-top: 25px;
+        color: #00ffcc; /* Bright, tech-inspired color */
+        font-size: 36px; /* Adjust font size */
+        text-align: center; /* Center the title */
+        font-family: 'Roboto Mono', monospace; /* Use the Roboto Mono font */
+        text-transform: uppercase; /* Uppercase letters for a stronger impact */
+        letter-spacing: 2px; /* Space between letters for a tech look */
+        text-shadow: 
+            1px 2px 3px rgba(75, 75, 75, 0.7), /* Strong shadow to the right and down */
+            -1px -2px 6px rgba(255, 255, 255, 0.7); /* Strong shadow to the left and up */
+    }
+</style>
+
+<section class="slider-container">
+    <div class="slider">
+        <div class="slide"><img src="image1.jpg" alt="Image 1"></div>
+        <div class="slide"><img src="image2.jpg" alt="Image 2"></div>
+        <div class="slide"><img src="image3.jpg" alt="Image 3"></div>
+        <div class="slide"><img src="image4.jpg" alt="Image 4"></div>
+        <div class="slide"><img src="image5.jpg" alt="Image 5"></div>
+        <div class="slide"><img src="image6.jpg" alt="Image 6"></div>
+        <div class="slide"><img src="image7.jpg" alt="Image 7"></div>
+        <div class="slide"><img src="image8.jpg" alt="Image 8"></div>
+        <div class="slide"><img src="image9.jpg" alt="Image 9"></div>
+        <div class="slide"><img src="image10.jpg" alt="Image 10"></div>
+        <div class="slide"><img src="image11.jpg" alt="Image 11"></div>
+        <div class="slide"><img src="image12.jpg" alt="Image 12"></div>
+        <div class="slide"><img src="image13.jpg" alt="Image 13"></div>
+        <div class="slide"><img src="image14.jpg" alt="Image 14"></div>
+        <!-- Duplicate slides for seamless loop -->
+        <div class="slide"><img src="image1.jpg" alt="Image 1"></div>
+        <div class="slide"><img src="image2.jpg" alt="Image 2"></div>
+    </div>
+</section>
+
+<style>
+    .header{
+        background-color: black;
+        height: 70px;
+        padding: 10px;
+    
+        margin-top: -20px;
+
+      
+    }
+    .slider-container {
+        width: 100%;
+        overflow: hidden;
+        position: relative;
+        padding: 10px;
+    }
+
+    .slider {
+        display: flex;
+        animation: slide 40s linear infinite;
+    }
+
+    .slide {
+        flex: 0 0 auto;
+    }
+
+    .slider img {
+        margin-top: -12px;
+        padding: 3px;
+        width: 240px;
+        height: 400px;
+        object-fit: cover;
+        position: relative;     
+        filter: saturate(10%);  
+        transition: 0.7s;      
+        background-color: black; 
+   
+    }
+
+    @keyframes slide {
+        0% {
+            transform: translateX(0);
+        }
+        100% {
+            transform: translateX(-100%);
+        }
+    }
+</style>
+
+
+
+
+
+
+
+<div class="button-container">
+    <a href="recharge.html" class="button">
+        <img src="recharge-icon.png" alt="Recharge Icon" class="button-icon">
+        <span class="button-label">Recharge</span>
+    </a>
+    <a href="withdraw.html" class="button">
+        <img src="withdraw-icon.png" alt="Withdraw Icon" class="button-icon">
+        <span class="button-label">Withdraw</span>
+    </a>
+    <a href="signin.html" class="button">
+       <img src="signin-icon.png" alt="Withdraw Icon" class="button-icon">
+       <span class="button-label">Sign Up</span>
+    </a>
+    <a href="platformrules.html" class="button">
+        <img src="rules-icon.png" alt="Withdraw Icon" class="button-icon">
+        <span class="button-label">Platform Rules</span>
+     </a>
+</div>
+<div class="invite-button-container">
+    <a href="invite.html" class="invite-button">
+        <img src="invite-icon.png" alt="Invite Icon" class="invite-icon">
+        <div class="invite-text">
+            <span class="button-labels">Invite to Share</span>
+            <p class="invite-description">Invite friends to sign up and enjoy rebates</p>
+        </div>
+    </a>
+</div>
+<style>
+    .invite-button-container {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+
+    .invite-button {
+        display: flex;
+        align-items: center;
+        text-decoration: none;
+        color: white;
+        padding: 15px;
+        border-radius: 8px;
+        background: rgba(255, 255, 255, 0.1); /* Base translucent background */
+        -webkit-backdrop-filter: blur(12px);
+        backdrop-filter: blur(12px);
+        border: 1px solid rgba(255, 255, 255, 0.3);
+        box-shadow: 0 4px 8px rgba(255, 255, 255, 0.2), 0 0 10px rgba(255, 255, 255, 0.4); /* Outer glow */
+        position: relative;
+        overflow: hidden;
+        margin-top: 20px;
+        width: 90%;
+    }
+
+    .invite-button::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: -75%;
+        width: 150%;
+        height: 100%;
+        background: linear-gradient(120deg, rgba(255, 255, 255, 0.3), rgba(255, 255, 255, 0.6), rgba(255, 255, 255, 0.3));
+        transform: skewX(-20deg);
+        transition: all 0.4s;
+        animation: shine 2s infinite;
+    }
+
+    @keyframes shine {
+        0% { left: -75%; }
+        100% { left: 125%; }
+    }
+
+    .invite-icon {
+        max-width: 50px;
+        margin-right: 10px;
+    }
+    
+    .invite-text {
+        display: flex;
+        flex-direction: column;
+    }
+    
+    .button-labels {
+        font-size: 18px;
+        font-weight: bold;
+        margin-top: 10px;
+    }
+    
+    .invite-description {
+        font-size: 14px;
+        margin-top: 10px;
+        color: rgb(255, 255, 255);
+    }
+</style>
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- Products Section -->
+<h2 class="products-heading">Products:</h2>
+<div class="products">
+    <div class="product-card">
+        <img src="iphone-blue.png" alt="iPhone Blue" class="product-image">
+        <h3>₱300</h3>
+        <div class="product-details">
+            <p>Revenue Cycle: 60 days</p>
+            <p>Daily Income: ₱15</p>
+            <p>Total Revenue: ₱900</p>
+        </div>
+        <button class="buy-button" onclick="buyProduct('iPhone Blue', 300, 'iphone-blue.png', 15)">Buy it Now</button>
+    </div>
+    <div class="product-card">
+        <img src="iphone-green.png" alt="iPhone Green" class="product-image">
+        <h3>₱700</h3>
+        <div class="product-details">
+            <p>Revenue Cycle: 60 days</p>
+            <p>Daily Income: ₱28</p>
+            <p>Total Revenue: ₱1,680</p>
+        </div>
+        <button class="buy-button" onclick="buyProduct('iPhone Green', 700, 'iphone-green.png', 28)">Buy it Now</button>
+    </div>
+    <div class="product-card">
+        <img src="iphone-white.png" alt="iPhone White" class="product-image">
+        <h3>₱1,500</h3>
+        <div class="product-details">
+            <p>Revenue Cycle: 60 days</p>
+            <p>Daily Income: ₱60</p>
+            <p>Total Revenue: ₱3,600</p>
+        </div>
+        <button class="buy-button" onclick="buyProduct('iPhone White', 1500, 'iphone-white.png', 60)">Buy it Now</button>
+    </div>
+    <div class="product-card">
+        <img src="iphone16.png" alt="iPhone 16" class="product-image">
+        <h3>₱3,000</h3>
+        <div class="product-details">
+            <p>Revenue Cycle: 60 days</p>
+            <p>Daily Income: ₱122</p>
+            <p>Total Revenue: ₱7,320</p>
+        </div>
+        <button class="buy-button" onclick="buyProduct('iPhone 16', 3000, 'iphone16.png', 122)">Buy it Now</button>
+    </div>
+</div>
+
+
+
+
+<!-- Insufficient Funds Modal Layout -->
+<div id="insufficientFundsModal" class="modal">
+    <div class="modal-content">
+        <span class="close-button" onclick="closeInsufficientFundsModal()">&times;</span>
+        <h2 class="modal-error">Insufficient Funds</h2>
+        <p>Please recharge your account to complete this purchase.</p>
+    </div>
+</div>
+
+<!-- Success Modal Layout -->
+<div id="successModal" class="modal">
+    <div class="modal-content">
+        <span class="close-button" onclick="closeModal()">&times;</span>
+        <h2 class="modal-success">Purchase Successful</h2>
+        <p id="modalMessage">You have successfully purchased the product.</p>
+    </div>
+</div>
+
+<!-- Styles -->
+<style>
+    /* Page Header Style */
+    .products-heading {
+        color: white;
+        margin-left: 20px;
+    }
+
+    /* Modal overlay styling */
+    .modal {
+        display: none;
+        position: fixed;
+        z-index: 1000;
+        left: 0;
+        top: 0;
+        width: 100%;
+        height: 100%;
+        background-color: rgba(0, 0, 0, 0.5);
+    }
+
+    /* Modal content styling */
+    .modal-content {
+        background-color: #fefefe;
+        margin: 10% auto;
+        padding: 20px;
+        border-radius: 8px;
+        width: 80%;
+        max-width: 400px;
+        text-align: center;
+        position: relative;
+    }
+
+    /* Close button styling */
+    .close-button {
+        position: absolute;
+        top: 10px;
+        right: 15px;
+        font-size: 18px;
+        font-weight: bold;
+        color: #aaa;
+        cursor: pointer;
+    }
+    .close-button:hover {
+        color: #000;
+    }
+
+    /* Title color classes */
+    .modal-success {
+        color: #28a745; /* Green for success messages */
+    }
+    .modal-error {
+        color: #dc3545; /* Red for error messages */
+    }
+
+    /* General text styling */
+    .modal h2 {
+        font-size: 24px;
+        margin-bottom: 10px;
+    }
+    .modal p {
+        font-size: 16px;
+        color: #333;
+    }
+</style>
+
+
+
+
+
+<!-- Scripts -->
+<script>
+    // JavaScript function for handling product purchases
+    function buyProduct(productName, productPrice, productImage, dailyIncome) {
+        let currentBalance = parseFloat(localStorage.getItem('currentBalance')) || 0;
+
+        if (currentBalance >= productPrice) {
+            currentBalance -= productPrice;
+            localStorage.setItem('currentBalance', currentBalance.toFixed(2));
+
+            const purchaseDate = new Date();
+            const endDate = calculateEndDate(purchaseDate, 60);
+            const totalRevenue = dailyIncome * 60;
+
+            const orderRecord = {
+                productName,
+                amount: productPrice,
+                image: productImage,
+                dailyIncome,
+                totalRevenue,
+                purchaseDate: purchaseDate.toISOString(),
+                endDate: endDate,
+                lastUpdate: purchaseDate.toISOString()
+            };
+
+            const orders = JSON.parse(localStorage.getItem('orders')) || [];
+            orders.push(orderRecord);
+            localStorage.setItem('orders', JSON.stringify(orders));
+
+            // Display success modal
+            showModal(`You have successfully purchased ${productName} for ₱${productPrice}.`);
+
+            updateBalanceDisplay();
+            displayOrders();
+        } else {
+            // Show insufficient funds modal
+            showInsufficientFundsModal();
+        }
+    }
+
+    // Function to calculate the end date based on the number of days
+    function calculateEndDate(startDate, cycleDays) {
+        const endDate = new Date(startDate);
+        endDate.setDate(endDate.getDate() + cycleDays);
+        return endDate.toISOString();
+    }
+
+    // Function to display orders and manage incomes
+    function displayOrders() {
+        const orders = JSON.parse(localStorage.getItem('orders')) || [];
+        const ordersList = document.getElementById('my-orders');
+        ordersList.innerHTML = '';
+
+        if (orders.length === 0) {
+            ordersList.innerHTML = '<p class="no-orders">No investments found.</p>';
+        } else {
+            orders.forEach(order => {
+                const orderItem = document.createElement('div');
+                orderItem.className = 'order-item';
+
+                const orderDetails = document.createElement('div');
+                orderDetails.className = 'order-details';
+                orderDetails.innerHTML = `
+                    <img src="${order.image}" alt="${order.productName}" class="order-image">
+                    <strong>${order.productName}</strong>
+                    <p>Investment Amount: ₱${order.amount.toFixed(2)}</p>
+                    <p>Daily Income: ₱${order.dailyIncome.toFixed(2)}</p>
+                    <p>Total Revenue: ₱${order.totalRevenue.toFixed(2)}</p>
+                    <p>Purchase Date: ${new Date(order.purchaseDate).toLocaleString()}</p>
+                    <p>End Date: ${new Date(order.endDate).toLocaleString()}</p>
+                `;
+
+                orderItem.appendChild(orderDetails);
+                ordersList.appendChild(orderItem);
+            });
+        }
+    }
+
+    // Function to update balance display
+    function updateBalanceDisplay() {
+        const currentBalance = parseFloat(localStorage.getItem('currentBalance')) || 0;
+        document.getElementById('account-balance-display').textContent = `₱${currentBalance.toFixed(2)}`;
+    }
+
+    // Initial function calls when the page loads
+    document.addEventListener('DOMContentLoaded', () => {
+        displayOrders();
+        updateBalanceDisplay();
+    });
+
+    // Success modal functions
+    function showModal(message) {
+        const modal = document.getElementById('successModal');
+        document.getElementById('modalMessage').textContent = message;
+        modal.style.display = 'block';
+
+        // Auto-close modal after 5 seconds
+        setTimeout(closeModal, 5000);
+    }
+    function closeModal() {
+        document.getElementById('successModal').style.display = 'none';
+    }
+
+    // Insufficient funds modal functions
+    function showInsufficientFundsModal() {
+        const modal = document.getElementById('insufficientFundsModal');
+        modal.style.display = 'block';
+
+        // Auto-close modal after 5 seconds
+        setTimeout(closeInsufficientFundsModal, 5000);
+    }
+    function closeInsufficientFundsModal() {
+        document.getElementById('insufficientFundsModal').style.display = 'none';
+    }
+
+    // Hide modals when clicking outside
+    window.onclick = function(event) {
+        const successModal = document.getElementById('successModal');
+        const insufficientFundsModal = document.getElementById('insufficientFundsModal');
+
+        if (event.target == successModal) {
+            successModal.style.display = 'none';
+        }
+        if (event.target == insufficientFundsModal) {
+            insufficientFundsModal.style.display = 'none';
+        }
+    };
+</script>
+
+
+
+
+
+
+
+
+
+
+<!-- Add some CSS for the product cards -->
+<style>
+    .products {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 20px;
+    }
+
+    .product-card {
+        border: 1px solid #ccc;
+        border-radius: 10px;
+        overflow: hidden;
+        width: 200px; /* Set a fixed width for consistency */
+        text-align: center;
+        background-color: #f9f9f9;
+        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        transition: transform 0.2s;
+    }
+
+    .product-card:hover {
+        transform: scale(1.05);
+    }
+
+    .product-image {
+        width: 70%;
+        height: auto;
+    }
+
+    .buy-button {
+        background-color: green;
+        color: white;
+        border: none;
+        padding: 10px;
+        cursor: pointer;
+        border-radius: 5px;
+        margin: 10px 0;
+        transition: background-color 0.3s;
+    }
+
+    .buy-button:hover {
+        background-color: rgb(10, 207, 10);
+    }
+</style>
+
+
+
+<style>
+    body {
+        font-family: Arial, sans-serif;
+        margin: 0;
+        padding: 0;
+        background-color: #f4f4f4;
+    }
+
+
+
+    .button-container {
+        display: flex;
+        justify-content: space-around;
+        margin: 20px 0;
+    }
+    .button {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        background: rgba(255, 255, 255, 0.2); /* Translucent background */
+        -webkit-backdrop-filter: blur(5px); /* Glass blur effect for Safari */
+        backdrop-filter: blur(10px); /* Glass blur effect */
+        color: #333;
+        padding: 10px;
+        text-decoration: none;
+        border-radius: 15px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1), 0 0 15px rgba(255, 255, 255, 0.2); /* Soft shadows and glow */
+        width: 250px;
+        transition: background-color 0.4s ease, box-shadow 0.4s ease, transform 0.3s ease; /* Smooth transitions */
+        border: 1px solid rgba(255, 255, 255, 0.2); /* Light border for glass effect */
+        position: relative;
+        overflow: hidden;
+    }
+    .button:hover {
+        background: rgba(255, 255, 255, 0.3); /* Brighter glass effect on hover */
+        box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2), 0 0 20px rgba(255, 255, 255, 0.3); /* Stronger shadow and glow on hover */
+        transform: translateY(-3px); /* Slight upward movement */
+    }
+    .button:before {
+        content: '';
+        position: absolute;
+        top: -50%;
+        left: -50%;
+        width: 200%;
+        height: 300%;
+        background: linear-gradient(45deg, rgba(255, 255, 255, 0.3), rgba(255, 255, 255, 0));
+        opacity: 0.5;
+        transform: rotate(0deg);
+        transition: transform 1.5s ease-in-out;
+        z-index: 1;
+        pointer-events: none; /* Click through the shine */
+    }
+    .button:hover:before {
+        transform: rotate(360deg); /* Rotating shine on hover */
+    }
+    .button-icon {
+        width: 40px;
+        height: 40px;
+        margin-bottom: 8px;
+        position: relative;
+        z-index: 2; /* Ensure the icon stays above the shine */
+    }
+    
+    .button-label {
+        font-size: 12px;
+        color: #ffffff;
+        text-shadow: 
+        1px 1px 1px rgba(0, 0, 0, 0.7), /* Strong shadow to the right and down */
+        -1px -2px 3px rgba(0, 0, 0, 0.7); /* Strong shadow to the left and up */
+        text-align: center;
+        position: relative;
+        z-index: 2; /* Ensure the label stays above the shine */
+    }
+
+
+ 
+
+
+    .products {
+        display: flex;
+        flex-wrap: wrap; /* Allows the products to wrap to the next row */
+        justify-content: space-around; /* Space between products */
+        margin-top: 10px;
+        margin-bottom: 100px;
+    }
+    
+    .product-card {
+        background: rgba(255, 255, 255, 0.2); /* Translucent background */
+        -webkit-backdrop-filter: blur(10px); /* Apply blur effect */
+        backdrop-filter: blur(5px); /* Support for Safari */
+        padding: 15px;
+        border-radius: 10px;
+        border: 1px solid rgba(255, 255, 255, 0.3); /* Light border to enhance glass effect */
+        box-shadow: 0 4px 6px rgba(255, 255, 255, 0.1); /* Subtle shadow for depth */
+        width: 300px;
+        text-align: center;
+        flex: 1 1 300px; /* Flex-grow, shrink, and basis: makes the cards responsive */
+        max-width: 300px;
+        margin: 10px; /* Centering form */
+    
+
+    }
+    .product-card p{
+        color: white;
+    }
+    .product-card h3{
+        color: rgb(13, 197, 13);
+        font-size: 20px;
+    }
+
+    
+
+    
+    .product-details {
+        margin: 10px 0;
+        text-align: left; /* Align text to the left */
+    }
+    .product-details p {
+        display: flex; /* Align icon and text horizontally */
+        align-items: center; /* Vertically align icon and text */
+        justify-content: space-between; /* Space between icon and text */
+        margin: 5px 0; /* Add spacing between rows */
+    }
+    
+    .product-details img {
+        max-width: 20px; /* Set a small width for the icons */
+        height: auto; /* Maintain aspect ratio */
+        margin-right: 10px; /* Add space between the icon and text */
+    }
+    
+    .product-details {
+        display: flex;
+        flex-direction: column;
+        gap: 5px;
+    }
+    
+    .product-details p {
+        display: grid;
+        grid-template-columns: auto 1fr; /* Align icon on the left and text next to it */
+        column-gap: 10px; /* Gap between the icon and text */
+    }  
+</style>
+
+
+
+    <footer class="footer">
+        <div class="footer-icons">
+            <a href="dashboard.html" class="footer-item">
+                <img src="home-icon.png" alt="Home" class="footer-icon">
+                <span class="icon-label">Home</span>
+            </a>
+            <a href="invest.html" class="footer-item">
+                <img src="invest-icon.png" alt="Invest" class="footer-icon">
+                <span class="icon-label">Invest</span>
+            </a>
+            <a href="teams.html" class="footer-item">
+                <img src="team-icon.png" alt="Teams" class="footer-icon">
+                <span class="icon-label">Teams</span>
+            </a>
+            <a href="mine.html" id="logoutLink" class="footer-item">
+                <img src="mine-icon.png" alt="Mine" class="footer-icon">
+                <span class="icon-label">Mine</span>
+            </a>
+        </div>
+    </footer>
+    <style>
+        .footer {
+            background-color: rgba(0, 128, 0, 0.3); /* Semi-transparent green for glass effect */
+            padding: 10px 0;
+            position: fixed;
+            bottom: 0;
+            width: 100%;
+            border-radius: 15px;
+            backdrop-filter: blur(10px); /* Frosted glass blur effect */
+            box-shadow: 0 4px 10px rgba(0, 255, 0, 0.4), 0 2px 20px rgba(0, 128, 0, 0.6); /* Green glowing effect */
+            border: 1px solid rgba(255, 255, 255, 0.2); /* Light border for glass effect */
+            transition: box-shadow 0.3s ease; /* Smooth transition effect */
+        }
+        
+        .footer:hover {
+            box-shadow: 0 6px 15px rgba(0, 255, 0, 0.6), 0 4px 25px rgba(0, 128, 0, 0.8); /* Brighter shine on hover */
+        }
+        
+        .footer-icons {
+            display: flex;
+            justify-content: space-around;
+        }
+        
+        .footer-item {
+            display: flex;
+            flex-direction: column; /* Stack icon and label vertically */
+            align-items: center; /* Center the icon and label */
+            text-decoration: none; /* Remove underline from links */
+        }
+        
+        .footer-icon {
+            width: 40px;
+            height: 40px;
+            filter: brightness(0) invert(1); /* Make the icon white */
+        }
+        
+        .icon-label {
+            color: white; /* White text for the labels */
+            font-size: 14px; /* Adjust size of the label text */
+            margin-top: 5px; /* Space between icon and label */
+        }
+    </style>
+    
+
+
+    </div>
+</body>
+</html>

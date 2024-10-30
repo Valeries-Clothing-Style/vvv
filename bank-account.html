@@ -1,0 +1,350 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bank Account Page</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f0f0f0;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 90vh;
+          
+        }
+        .container {
+            background-color: white;
+            width: 450px;
+            padding: 20px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            border-radius: 8px;
+            margin-top: -80px;
+           
+        }
+        .container h3 {
+            text-align:
+             center;
+             margin-bottom: 20px;
+        }        
+
+        .display-box {
+            width: 100%;
+            height: 140px;
+            border: 2px solid #ccc;
+            margin-bottom: 20px;
+            padding: 10px;
+            background-color: #fafafa;
+            word-wrap: break-word;
+        }
+        .display-box p {
+            margin: 10px 0; /* Spacing between paragraphs */
+            font-weight: normal;
+            color: red;
+        }
+        
+        .display-box strong {
+            color: #333; /* Darker color for the labels */
+            font-weight: bold; /* Remove bold for a cleaner look */
+        }
+        
+        .display-box span {
+            color: #555; /* Lighter color for the details */
+            margin-left: -10px; /* Space between label and value */
+            font-weight: bold; /* Keep the detail bold for emphasis */
+        }
+     
+        label {
+            display: block;
+            margin-bottom: 10px;
+            font-weight: bold;
+        }
+        input[type="text"] {
+            width: 70%;
+            padding: 10px;
+            margin-bottom: 15px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+
+        input[type="password"] {
+            width: 70%;
+            padding: 10px;
+            margin-bottom: 15px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+
+        select{
+            width: 50%;
+            padding: 10px;
+            margin-bottom: 15px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+
+        button {
+            width: 30%;
+            margin-top: 50pxpx;
+            padding: 10px;
+            background-color: #ffffff;
+            color: rgb(60, 209, 60);
+            border: none;
+            border-radius: 10px;
+            cursor: pointer;
+            font-size: 16px;
+        }
+        button:hover {
+            color: green;
+          
+        }
+        .edit {
+
+            text-align: right;
+            color: rgb(232, 80, 80);
+            background-color: rgb(255, 255, 255);
+            cursor: pointer;
+            border: none;
+            border-radius: 8px;     
+            width: 100%;
+            margin-bottom: -40px;
+            font-size: 16px;
+        }
+        .edit:hover {
+            color: red;
+        }
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+        
+        body {
+            font-family: Arial, sans-serif;
+            display: flex;
+            min-height: 100vh;
+            flex-direction: column;
+        }
+        
+        
+        
+
+
+
+
+
+                #backgroundVideo {
+                    position: fixed;
+                    top: 0;
+                    left: 0;
+                    min-width: 100%;
+                    min-height: 100%;
+                    z-index: -1; /* Send the video to the background */
+                    object-fit: cover; /* Ensure the video covers the entire screen */
+                    filter: brightness(20%);  
+                }    
+                </style>
+
+                
+                    <video autoplay muted loop id="backgroundVideo">
+                        <source src="video-bg.mp4" type="video/mp4">
+                        Your browser does not support the video tag.
+                    </video>
+                    
+             
+
+
+
+
+
+
+
+<div class="container">
+    <h3>Your Linked Bank Accounts</h3>
+    <button class="edit" id="editButton" style="display:none;">Edit</button>
+<div class="display-box" id="displayBox">
+    <p><strong>Bank Account Type:</strong> <span id="accountType"></span></p>
+    <p><strong>Account Name:</strong> <span id="realName"></span></p>
+    <p><strong>Account No:</strong> <span id="accountNo"></span></p>
+    <p><strong>Fund Password:</strong> <span id="fundPasswordDisplay"></span></p>
+</div>
+
+
+
+     <form id="bankForm">
+        <label for="accountTypeSelect">Bank account type:</label>
+        <select id="accountTypeSelect" name="accountType"> <!-- Changed ID here -->
+            <option value="GCash">GCash</option>
+            <option value="PayPal">PayPal</option>
+        </select>
+
+        <label for="accountName">Account name:</label>
+        <input type="text" id="accountName" name="accountName" placeholder="Enter your account name" required>
+
+        <label for="accountNumber">Account number:</label>
+        <input type="text" id="accountNumber" name="accountNumber" placeholder="Enter your account number" required>
+
+        <label for="fundPassword">Fund Password:</label>
+        <input type="password" id="fundPassword" name="fundPassword" placeholder="Enter your fund password" required>
+
+        <button type="submit" id="bindButton">Bind Account</button>
+    </form>
+</div>
+<script>
+    // Fetch bank account from localStorage
+    const savedBankAccount = localStorage.getItem('bankAccount');
+
+    // Pre-select saved bank account type
+    if (savedBankAccount) {
+        document.getElementById('accountTypeInput').value = savedBankAccount;
+    }
+
+    // Function to save bank account to localStorage
+    function saveBankAccount(event) {
+        event.preventDefault();
+        const accountType = document.getElementById('accountTypeInput').value;
+        localStorage.setItem('bankAccount', accountType);
+        alert('Bank account saved successfully.');
+    }
+
+    // Function to go back to the withdrawal page
+    function goBack() {
+        window.location.href = "withdraw.html"; // Redirect back to withdrawal page
+    }
+</script>
+
+
+
+
+
+<script>
+    const bankForm = document.getElementById("bankForm");
+    const displayBox = document.getElementById("displayBox");
+    const editButton = document.getElementById("editButton");
+    
+    // Retrieve stored data from localStorage on page load
+    let formData = JSON.parse(localStorage.getItem("bankAccountData")) || {};
+
+    // Function to update the display box with account data
+    function updateDisplay() {
+        displayBox.innerHTML = `
+            <p><strong>Bank Account Type:</strong> ${formData.accountType || ''}</p>
+            <p><strong>Account Name:</strong> ${formData.accountName || ''}</p>
+            <p><strong>Account No:</strong> ${formData.accountNumber || ''}</p>
+            <p><strong>Fund Password:</strong> *****</p> <!-- Mask the fund password -->
+        `;
+        editButton.style.display = formData.accountType ? "block" : "none"; // Show the edit button if data exists
+    }
+
+    // Bind Account function: Save data, display details, and clear form fields
+    function bindAccount() {
+        // Get user inputs and store them in formData
+        formData.accountType = document.getElementById("accountTypeSelect").value; // Updated ID used here
+        formData.accountName = document.getElementById("accountName").value;
+        formData.accountNumber = document.getElementById("accountNumber").value;
+        formData.fundPassword = document.getElementById("fundPassword").value;
+    
+        // Save data to localStorage
+        localStorage.setItem("bankAccountData", JSON.stringify(formData));
+
+        // Display the details in the display box
+        updateDisplay();
+    
+        // Clear form fields after binding account
+        bankForm.reset();
+    }
+    
+    // Edit function to repopulate form fields with stored data
+    function editDetails() {
+        // Repopulate the form fields with the saved data
+        document.getElementById("accountTypeSelect").value = formData.accountType || ''; // Updated ID used here
+        document.getElementById("accountName").value = formData.accountName || '';
+        document.getElementById("accountNumber").value = formData.accountNumber || '';
+        document.getElementById("fundPassword").value = formData.fundPassword || '';
+    }
+    
+    // Initial display update on page load
+    updateDisplay();
+    
+    // Handle form submission (Bind Account button)
+    bankForm.addEventListener("submit", function(event) {
+        event.preventDefault();
+        bindAccount();
+    });
+    
+    // Handle Edit button click
+    editButton.addEventListener("click", editDetails);    
+</script>
+
+
+
+
+
+<footer class="footer">
+    <div class="footer-icons">
+        <a href="dashboard.html" class="footer-item">
+            <img src="home-icon.png" alt="Home" class="footer-icon">
+            <span class="icon-label">Home</span>
+        </a>
+        <a href="invest.html" class="footer-item">
+            <img src="invest-icon.png" alt="Invest" class="footer-icon">
+            <span class="icon-label">Invest</span>
+        </a>
+        <a href="teams.html" class="footer-item">
+            <img src="team-icon.png" alt="Teams" class="footer-icon">
+            <span class="icon-label">Teams</span>
+        </a>
+        <a href="mine.html" id="logoutLink" class="footer-item">
+            <img src="mine-icon.png" alt="Mine" class="footer-icon">
+            <span class="icon-label">Mine</span>
+        </a>
+    </div>
+</footer>
+<style>
+    .footer {
+        background-color: rgba(0, 128, 0, 0.3); /* Semi-transparent green for glass effect */
+        padding: 10px 0;
+        position: fixed;
+        bottom: 0;
+        width: 100%;
+        border-radius: 15px;
+        backdrop-filter: blur(10px); /* Frosted glass blur effect */
+        box-shadow: 0 4px 10px rgba(0, 255, 0, 0.4), 0 2px 20px rgba(0, 128, 0, 0.6); /* Green glowing effect */
+        border: 1px solid rgba(255, 255, 255, 0.2); /* Light border for glass effect */
+        transition: box-shadow 0.3s ease; /* Smooth transition effect */
+    }
+    
+    .footer:hover {
+        box-shadow: 0 6px 15px rgba(0, 255, 0, 0.6), 0 4px 25px rgba(0, 128, 0, 0.8); /* Brighter shine on hover */
+    }
+    
+    .footer-icons {
+        display: flex;
+        justify-content: space-around;
+    }
+    
+    .footer-item {
+        display: flex;
+        flex-direction: column; /* Stack icon and label vertically */
+        align-items: center; /* Center the icon and label */
+        text-decoration: none; /* Remove underline from links */
+    }
+    
+    .footer-icon {
+        width: 40px;
+        height: 40px;
+        filter: brightness(0) invert(1); /* Make the icon white */
+    }
+    
+    .icon-label {
+        color: white; /* White text for the labels */
+        font-size: 14px; /* Adjust size of the label text */
+        margin-top: 5px; /* Space between icon and label */
+    }
+</style>
+
+</body>
+</html>

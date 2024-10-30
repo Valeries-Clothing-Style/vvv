@@ -1,0 +1,460 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>VeilVest Login</title>
+    <link rel="stylesheet" href="styles.css">
+    <style>
+        body {
+            font-family: Arial, sans-serif; /* Set a font for the body */
+            justify-content: center;
+            align-items: center;
+            height: 100%; /* Full viewport height */
+            margin: 0; /* Remove default margin */
+            text-align: center;
+        }
+        
+        .login-form {
+            background: rgba(255, 255, 255, 0.2); /* Translucent background */
+            -webkit-backdrop-filter: blur(10px); /* Apply blur effect */
+            backdrop-filter: blur(5px); /* Support for Safari */
+            padding: 20px;
+            border-radius: 10px;
+            border: 1px solid rgba(255, 255, 255, 0.3); /* Light border to enhance glass effect */
+            box-shadow: 0 4px 6px rgba(255, 255, 255, 0.1); /* Subtle shadow for depth */
+            width: 80%;
+            max-width: 400px;
+            height: 300px;
+            margin: 0 auto; /* Centering form */
+        }
+
+        .app-title {
+            color: #00ffcc; /* Bright, tech-inspired color */
+            font-size: 36px; /* Adjust font size */
+            margin-bottom: 30px;
+            text-align: center; /* Center the title */
+            font-family: 'Roboto Mono', monospace; /* Use the Roboto Mono font */
+            text-transform: uppercase; /* Uppercase letters for a stronger impact */
+            letter-spacing: 2px; /* Space between letters for a tech look */
+            text-shadow: 
+                1px 2px 3px rgba(0, 0, 0, 0.7), /* Strong shadow to the right and down */
+                -1px -2px 6px rgba(0, 0, 0, 0.7); /* Strong shadow to the left and up */
+        }
+
+        .form-group {
+            width: 100%;
+            margin-bottom: 10px; /* Space between input fields */
+            margin-left: -10px;
+            display: flex; /* Use flexbox for alignment */
+            align-items: center; /* Center items vertically */
+            border: 1px solid rgba(0, 209, 0, 0.5); /* Semi-transparent border for glass effect */
+            border-radius: 10px; /* Rounded corners */
+            padding: 10px; /* Padding around the content */
+            backdrop-filter: blur(10px); /* Blurring the background */
+            background-color: rgba(255, 255, 255, 0.1); /* Slightly transparent white background */
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3); /* Soft shadow for depth */
+            transition: background-color 0.3s ease; /* Smooth transition for hover effect */
+        }
+        
+        .form-group:hover {
+            background-color: rgba(255, 255, 255, 0.2); /* Darker on hover */
+        }
+        
+        .icon {
+            width: 20px; /* Icon size */
+            height: 20px; /* Icon size */
+            margin-right: 10px; /* Space between icon and input */
+        }
+        
+        input {
+            border: none; /* No border for the input */
+            flex: 1; /* Allow input to grow and fill available space */
+            font-size: 16px; /* Font size for input text */
+            outline: none; /* No outline on focus */
+            color: rgb(255, 255, 255);
+            background-color: transparent; /* Transparent background */
+            text-shadow: 
+            0px 0px 3px rgba(0, 0, 0, 0.7), /* Strong shadow to the right and down */
+            0 0 1px rgba(0, 0, 0, 0.7); /* Strong shadow to the left and up */
+        }
+            
+        
+        
+        input::placeholder {
+            color: #dbd7d7; /* Placeholder text color */
+            background-color: transparent;
+            
+        }
+
+        
+        .login-btn {
+             width: 70%; /* Ensures button occupies the full width */
+            background-color: rgba(255, 255, 255, 0.1); /* Slightly transparent white for glass effect */
+            color: #fff; /* Text color */
+            border: 1px solid rgba(255, 255, 255, 0.3); /* Semi-transparent white border */
+            padding: 10px; /* Padding for better button appearance */
+            font-size: 18px; /* Font size */
+            border-radius: 25px; /* Rounded corners */
+            cursor: pointer; /* Pointer cursor on hover */
+            margin-top: 20px; /* Space above button */
+            backdrop-filter: blur(10px); /* Blurring the background behind the button */
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2); /* Soft shadow for depth */
+            transition: background-color 0.3s, transform 0.3s; /* Smooth transition effect */
+        }
+        
+        .login-btn:hover {
+            background-color: rgba(255, 255, 255, 0.2); /* Darker on hover */
+            transform: scale(1.05); /* Slightly increase size on hover */
+        }
+        .registration-link {
+                display: block;
+                margin-top: 20px;
+                color: rgb(202, 202, 202);
+                text-decoration: none;
+                text-shadow: 
+                1px 2px 3px rgba(0, 0, 0, 0.7), /* Strong shadow to the right and down */
+                -1px -2px 6px rgba(0, 0, 0, 0.7); /* Strong shadow to the left and up */
+            }        
+            .registration-link:hover {
+                color: rgb(0, 205, 0);
+            }
+            #forgotPasswordLink {
+                color: rgb(34, 34, 246); /* Change 'blue' to your desired color */
+                text-shadow: 
+                1px 2px 3px rgba(0, 0, 0, 0.7), /* Strong shadow to the right and down */
+                -1px -2px 6px rgba(0, 0, 0, 0.7); /* Strong shadow to the left and up */
+            }        
+           
+            #forgotPasswordLink:hover {
+                color: red; /* Change to your desired hover color */
+                text-shadow: 
+                1px 2px 3px rgba(0, 0, 0, 0.7), /* Strong shadow to the right and down */
+                -1px -2px 6px rgba(0, 0, 0, 0.7); /* Strong shadow to the left and up */
+            }
+            .save-password label{
+                color: rgb(201, 201, 201);
+            }              
+            .save-password-group{
+                color: white;
+            } 
+            
+
+            
+            
+        #message {
+            color: red; /* Default color for message */
+            text-align: center; /* Center the text */
+            margin-top: 10px; /* Space above message */
+            height: 40px; /* Fixed height to prevent layout shifts */
+            overflow: hidden; /* Hide overflow to keep layout neat */
+        }    
+        @media (max-width: 600px) {
+            .registration-container {
+                width: 90%;
+            }
+        
+        }
+        @keyframes shake {
+            0% { transform: translate(1px, 0); }
+            25% { transform: translate(-1px, 0); }
+            50% { transform: translate(1px, 0); }
+            75% { transform: translate(-1px, 0); }
+            100% { transform: translate(0, 0); }
+        }
+        .shake {
+            animation: shake 0.5s;
+        }
+        #registerMessage, #successMessage {
+            text-align: center;
+            margin-top: 10px;
+        }
+               /* Make the video cover the entire screen */
+#backgroundVideo {
+    position: fixed;
+    top: 0;
+    left: 0;
+    min-width: 100%;
+    min-height: 100%;
+    z-index: -1; /* Send the video to the background */
+    object-fit: cover; /* Ensure the video covers the entire screen */
+    filter: brightness(20%);  
+}     
+/* Style for the eye icon */
+.eye-icon {
+    position: absolute;
+    right: 10px; /* Adjust this value to position the icon properly */
+    top: 50%; /* Centers the icon vertically */
+    transform: translateY(-50%); /* Adjust for exact vertical centering */
+    width: 20px; /* Adjust the size of the icon */
+    height: 20px; /* Adjust the size of the icon */
+    cursor: pointer; /* Change the cursor to indicate it's clickable */
+    z-index: 10; /* Ensure it sits above the input field */
+}
+
+/* Optional: Add hover effect for the icon */
+.eye-icon:hover {
+    opacity: 0.7; /* Slightly transparent on hover */
+}
+
+/* Input field adjustments to prevent overlap with icon */
+.form-group {
+    margin-bottom: 20px; /* Add space between form groups */
+}
+
+.form-group input {
+    padding-right: 40px; /* Add padding to the right to avoid text overlap with the icon */
+}
+    </style>
+
+
+</head>
+<body>
+
+    <video autoplay muted loop id="backgroundVideo">
+        <source src="video-bg.mp4" type="video/mp4">
+        Your browser does not support the video tag.
+    </video>
+    
+   
+    <div class="login-container">
+        <h1 class="app-title">VeilVest</h1>
+        <form id="loginForm" class="login-form">
+            <div class="form-group">
+                <img src="phone-icon.png" alt="phone icon" class="icon">
+                <input type="text" id="login-phone" placeholder="Please enter phone number" required>
+            </div>
+            <div class="form-group">
+                <img src="password-icon.png" alt="password icon" class="icon">
+                <input type="password" id="login-password" placeholder="Please enter your password" required>
+                <img src="eye-icon.png" alt="Toggle Password Visibility" class="eye-icon" id="togglePassword" onclick="togglePasswordVisibility()">
+            </div>
+    
+            <div class="save-password-group">
+                <input type="checkbox" id="save-password">
+                <label for="save-password">Save Password</label>
+            </div>
+    
+            <button type="submit" class="login-btn">Submit</button>
+            <p><a href="reset-password.html" id="forgotPasswordLink">Forgot Password?</a></p>
+            <div>
+                <a href="index.html" class="registration-link">Register Account</a>
+            </div>
+            <div id="registerMessage" style="display: none; color: red;">You must register a phone number before logging in!</div>
+            <div id="successMessage" style="display: none; color: rgb(0, 255, 0);">Login successful! Redirecting...</div>
+        </form>
+    </div>
+    
+<!-- Registration Message Modal -->
+<div id="registerModal" class="modal">
+    <div class="modal-content error-modal">
+        <span class="close" onclick="closeRegisterModal()">&times;</span>
+        <p>You must register a phone number before logging in!</p>
+    </div>
+</div>
+<style>
+    .modal-content p{
+        color:red;
+    }
+</style>
+
+<!-- Success Message Modal -->
+<div id="successModal" class="modal">
+    <div class="modal-content success-modal">
+        <span class="close" onclick="closeSuccessModal()">&times;</span>
+        <p>Login successful! Redirecting...</p>
+        <div class="loading-bar"></div> <!-- Loading bar -->
+    </div>
+</div>
+<style>
+    .modal-content p{
+        color: rgb(7, 255, 7);
+    }
+</style>
+
+<!-- Styles -->
+<style>
+    /* Modal styles */
+    .modal {
+        display: none; /* Hidden by default */
+        position: fixed; /* Stay in place */
+        z-index: 1000; /* Sit on top */
+        left: 0;
+        top: 0;
+        width: 100%; /* Full width */
+        height: 100%; /* Full height */
+        overflow: auto; /* Enable scroll if needed */
+        background-color: rgba(0, 0, 0, 0.6); /* Darker background with opacity */
+        animation: fadeIn 0.3s; /* Fade in animation */
+        
+    }
+    .modal-content {
+        background: rgba(255, 255, 255, 0.1); /* Base translucent background */
+        -webkit-backdrop-filter: blur(12px);
+        backdrop-filter: blur(12px);
+        border: 1px solid rgba(255, 255, 255, 0.3);
+        box-shadow: 0 4px 8px rgba(255, 255, 255, 0.2), 0 0 10px rgba(255, 255, 255, 0.4); /* Outer glow */
+        border-radius: 10px;
+        padding: 0px;
+        margin: 8% auto; /* Centered with margin from the top */
+        position: relative; /* Relative positioning for the pseudo-element */
+        width: auto; /* Set to auto for proper responsiveness */
+        max-width: 400px; /* Max width for larger screens */
+        animation: slideIn 0.7s; /* Slide in animation */
+        text-align: center; /* Center text */
+    }
+    
+
+
+    .error-modal {
+        border: 1px solid rgb(133, 0, 0); /* Green border for success */
+    }
+
+    .success-modal {
+        border: 1px solid rgb(0, 185, 0); /* Green border for success */
+    }
+
+ 
+    @keyframes fadeIn {
+        from { opacity: 0; }
+        to { opacity: 1; }
+    }
+
+    @keyframes slideIn {
+        from { transform: translateY(-20px); opacity: 0; }
+        to { transform: translateY(0); opacity: 1; }
+    }
+
+    /* Loading Bar Styles */
+    .loading-bar {
+        width: 100%; /* Full width */
+        height: 10px; /* Height of the loading bar */
+        background-color: transparent; /* Transparent background */
+        position: relative; /* Position relative for absolute children */
+        overflow: hidden; /* Hide overflow */
+        margin-top: 5px; /* Space from text */
+    }
+
+    .loading-bar::before {
+        content: ''; /* Empty content */
+        display: block; /* Block element */
+        width: 100%; /* Full width */
+        height: 100%; /* Full height */
+        background-color: rgb(0, 255, 0); /* Green color */
+        border-radius: 10px;
+        position: absolute; /* Position absolutely */
+        left: -100%; /* Start from the left */
+        animation: loadingAnimation 4s forwards; /* Loading animation */
+    }
+
+    @keyframes loadingAnimation {
+        0% { left: -100%; }
+        100% { left: 0; } /* Move to the right */
+    }
+</style>
+
+<!-- Scripts -->
+<script>
+    function showRegisterModal() {
+        document.getElementById('registerModal').style.display = 'block';
+    }
+
+    function closeRegisterModal() {
+        document.getElementById('registerModal').style.display = 'none';
+    }
+
+    function showSuccessModal() {
+        document.getElementById('successModal').style.display = 'block';
+    }
+
+    function closeSuccessModal() {
+        document.getElementById('successModal').style.display = 'none';
+    }
+</script>
+
+
+    
+
+<script>
+        // Function to toggle password visibility
+        function togglePasswordVisibility() {
+            const passwordInput = document.getElementById('login-password');
+            const toggleIcon = document.getElementById('togglePassword');
+    
+            if (passwordInput.type === "password") {
+                passwordInput.type = "text";
+                toggleIcon.src = "eye-slash-icon.png"; // Change to 'eye-slash' icon when visible
+            } else {
+                passwordInput.type = "password";
+                toggleIcon.src = "eye-icon.png"; // Change back to normal 'eye' icon
+            }
+        }
+    
+        document.addEventListener("DOMContentLoaded", function() {
+            const oneHour = 60 * 60 * 1000; // 1 hour in milliseconds
+            const loggedInUser = localStorage.getItem('loggedInUser');
+            const loginTime = localStorage.getItem('loginTime');
+    
+            if (loggedInUser && loginTime) {
+                const currentTime = new Date().getTime();
+                if (currentTime - loginTime > oneHour) {
+                    localStorage.removeItem('loggedInUser');
+                    localStorage.removeItem('loginTime');
+                } else {
+                    window.location.href = 'mine.html';
+                }
+            }
+    
+            const savedPassword = localStorage.getItem('savedPassword');
+            if (savedPassword) {
+                document.getElementById('login-password').value = savedPassword;
+                document.getElementById('save-password').checked = true; // Check the "Save Password" checkbox
+            }
+    
+            document.getElementById('loginForm').addEventListener('submit', function(event) {
+                event.preventDefault(); // Prevent the default form submission behavior
+    
+                const phoneNumber = document.getElementById('login-phone').value.trim();
+                const password = document.getElementById('login-password').value;
+                const registeredUsers = JSON.parse(localStorage.getItem('registeredUsers')) || [];
+    
+                if (registeredUsers.length === 0) {
+                    showRegisterModal(); // Show registration modal
+                    return; // Prevent further execution
+                }
+    
+                const user = registeredUsers.find(user => user.phone === phoneNumber && user.password === password);
+    
+                if (user) {
+                    localStorage.setItem('loggedInUser', phoneNumber);
+                    localStorage.setItem('loginTime', new Date().getTime());
+                    localStorage.setItem('registeredNumber', phoneNumber);
+    
+                    if (document.getElementById('save-password').checked) {
+                        localStorage.setItem('savedPassword', password);
+                    } else {
+                        localStorage.removeItem('savedPassword');
+                    }
+    
+                    showSuccessModal();
+                    setTimeout(() => {
+                        window.location.href = 'mine.html';
+                    }, 2000); // Adjust the delay (2000ms = 2 seconds)
+                } else {
+                    alert("Invalid phone number or password. Please try again.");
+                    document.getElementById('login-phone').value = '';
+                    document.getElementById('login-password').value = '';
+                    localStorage.removeItem('registeredNumber'); // Ensure registered number is cleared
+                }
+            });
+        });
+    </script>
+    
+
+    
+
+    
+
+    <script src="scripts.js"></script>
+</body>
+</html>

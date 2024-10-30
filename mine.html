@@ -1,0 +1,882 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mine Page</title>
+    <link rel="stylesheet" href="styles.css"> <!-- Link your CSS file -->
+<style>
+    
+    body {
+        font-family: Arial, sans-serif;
+        background-color: #f4f4f4;
+        margin: 0;
+        padding: 0;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        margin-bottom: 88px;
+    }
+    
+    .mine-container {
+        max-width: 1000px;
+        border: 1px solid #ccc;
+        border-radius: 10px;
+        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+        margin-top: 1px;
+        background: rgba(255, 255, 255, 0.1); /* Base translucent background */
+        -webkit-backdrop-filter: blur(12px);
+        backdrop-filter: blur(12px);
+        border: 1px solid rgba(255, 255, 255, 0.3);
+        box-shadow: 0 4px 8px rgba(255, 255, 255, 0.2), 0 0 10px rgba(255, 255, 255, 0.4); /* Outer glow */
+        padding: 50px;
+        text-align: center;
+        position: relative;
+        overflow: hidden; /* For any potential glow */
+    }
+    
+
+
+    /* Add a shining effect */
+    .mine-container:before {
+        content: '';
+        position: absolute;
+        top: -10%;
+        left: -50%;
+        width: 200%;
+        height: 200%;
+        background: linear-gradient(45deg, rgba(255, 255, 255, 0.2), rgba(255, 255, 255, 0));
+        opacity: 0.6;
+        transform: rotate(0deg);
+        transition: transform 3s ease-in-out;
+        z-index: 1;
+        pointer-events: none;
+    }
+    
+    /* Add a slow rotation effect */
+    .mine-container:hover:before {
+        transform: rotate(360deg); /* Rotating the shine */
+    }
+    
+    /* Ensure content is above the shine effect */
+    .mine-container * {
+        position: relative;
+        z-index: 2;
+    }
+    
+    .title {
+        color: #00ffcc; /* Bright, tech-inspired color */
+        font-size: 36px; /* Adjust font size */
+        margin-bottom: 40px;
+        margin-top: -10px;
+        text-align: center; /* Center the title */
+        font-family: 'Roboto Mono', monospace; /* Use the Roboto Mono font */
+        text-transform: uppercase; /* Uppercase letters for a stronger impact */
+        letter-spacing: 2px; /* Space between letters for a tech look */
+        text-shadow: 
+            1px 2px 3px rgba(0, 0, 0, 0.7), /* Strong shadow to the right and down */
+            -1px -2px 6px rgba(0, 0, 0, 0.7); /* Strong shadow to the left and up */
+    }
+    
+    .registered-number-container {
+        display: flex;
+        align-items: center;
+        justify-content: center; /* Center profile and registered number */
+        margin-bottom: 20px;
+        gap: 15px; /* Space between profile picture and number */
+    }
+    
+    .registered-number {
+        text-align: left; /* Align text to the left */
+    }
+    
+    .registered-number p {
+        margin: 0;
+        font-size: 10px;
+        color: #ffffff; /* Light gray for description text */
+    }
+    
+    .registered-number h2 {
+        margin: 0;
+        font-size: 14px;
+        color: #ff4c4c; /* Red text for the number */
+       margin-top: 3px;
+    }
+    
+    
+    .profile-picture-container {
+        position: relative; /* Positioning for the "+" button */
+        width: 60px; /* Fixed width for profile picture */
+        height: 60px; /* Fixed height for profile picture */
+     
+    }
+    
+    .profile-picture {
+        width: 90%; /* Set to 100% of the container */
+        height: 90%; /* Set to 100% of the container */
+        border-radius: 50%; /* Make the image circular */
+        object-fit: cover; /* Keep aspect ratio of the image */
+        border: 2px solid #ccc; /* Optional border */
+     
+    }
+    
+    .profile-pic-input {
+        display: none; /* Hide the file input */
+    }
+    
+    .add-profile-pic {
+        position: absolute; /* Position the "+" button */
+        top: 50%; /* Center vertically */
+        left: 50%; /* Center horizontally */
+        transform: translate(-50%, -50%); /* Adjust for centering */
+        width: 30px; /* Set size for the button */
+        height: 30px; /* Set size for the button */
+        background: rgba(255, 255, 255, 0.1); /* Base translucent background */
+        
+        color: rgb(0, 255, 0);
+        border-radius: 50%; /* Round shape */
+        text-align: center; /* Center text */
+        line-height: 30px; /* Center text vertically */
+        cursor: pointer; /* Pointer cursor for the button */
+        font-size: 40px; /* Font size for the button */
+        transition: background-color 0.5s; /* Smooth transition */
+        opacity: 0; /* Hide by default */
+        pointer-events: none; /* Prevent interaction */
+    }
+    
+    .profile-picture-container:hover .add-profile-pic {
+        opacity: 1; /* Show on hover */
+        pointer-events: auto; /* Allow interaction */
+    }
+    
+    .profile-picture:not([src='profile-pic-placeholder.png']) + .add-profile-pic {
+        display: none; /* Hide the button if there is a profile picture */
+    }
+    .account-balance h3 {
+        font-size: 22px;
+        color: #02d709; /* Green color for balance */
+        margin-top: 20px;
+    }
+    .account-balance p{
+        font-size: 14px;
+        color: rgb(255, 255, 255);
+        margin-top: -20px;
+        margin-bottom: 30px;
+    }
+    
+    .button-group {
+        display: flex;
+        justify-content: space-around;
+        margin: 10px 0;
+    }
+    
+    .button {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        background: rgba(255, 255, 255, 0.2); /* Translucent background */
+        -webkit-backdrop-filter: blur(5px); /* Glass blur effect for Safari */
+        backdrop-filter: blur(10px); /* Glass blur effect */
+        color: #333;
+        padding: 15px;
+        text-decoration: none;
+        border-radius: 15px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1), 0 0 15px rgba(255, 255, 255, 0.2); /* Soft shadows and glow */
+        width: 80px;
+        transition: background-color 0.4s ease, box-shadow 0.4s ease, transform 0.3s ease; /* Smooth transitions */
+        border: 1px solid rgba(255, 255, 255, 0.2); /* Light border for glass effect */
+        position: relative;
+        overflow: hidden;
+    }
+    
+    .button:hover {
+        background: rgba(255, 255, 255, 0.3); /* Brighter glass effect on hover */
+        box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2), 0 0 20px rgba(255, 255, 255, 0.3); /* Stronger shadow and glow on hover */
+        transform: translateY(-3px); /* Slight upward movement */
+    }
+    
+    .button:before {
+        content: '';
+        position: absolute;
+        top: -50%;
+        left: -50%;
+        width: 200%;
+        height: 300%;
+        background: linear-gradient(45deg, rgba(255, 255, 255, 0.3), rgba(255, 255, 255, 0));
+        opacity: 0.5;
+        transform: rotate(0deg);
+        transition: transform 1.5s ease-in-out;
+        z-index: 1;
+        pointer-events: none; /* Click through the shine */
+    }
+    
+    .button:hover:before {
+        transform: rotate(360deg); /* Rotating shine on hover */
+    }
+    
+    .button-icon {
+        width: 40px;
+        height: 40px;
+        margin-bottom: 8px;
+        position: relative;
+        z-index: 2; /* Ensure the icon stays above the shine */
+    }
+    
+    .button-label {
+        font-size: 12px;
+        color: #ffffff;
+        text-shadow: 
+        1px 1px 1px rgba(0, 0, 0, 0.7), /* Strong shadow to the right and down */
+        -1px -2px 3px rgba(0, 0, 0, 0.7); /* Strong shadow to the left and up */
+        text-align: center;
+        position: relative;
+        z-index: 2; /* Ensure the label stays above the shine */
+    }
+    
+    .invite-section {
+        border: 1px solid #e0e0e0;
+        padding: 15px;
+        margin: 20px 0;
+        background-color: rgba(255, 255, 255, 0.2); /* Translucent background */
+        backdrop-filter: blur(10px);
+        border-radius: 10px;
+    }
+    
+    .record-buttons {
+        margin: 30px 0;
+    }
+    
+    .row {
+        display: flex;
+        justify-content: space-between;
+        margin-bottom: 10px;
+    }
+    
+    .download-row {
+        margin-top: 20px;
+    }
+    
+    .button.full-width {
+        width: 89%;
+    }
+    
+    
+    .logout-row {
+        font-size: 18px;
+        margin-top: 30px; /* Space above the logout button */
+        text-align: center; /* Center the logout button */
+    }
+    
+    .logout-button {
+       
+        color: rgb(255, 255, 255);
+ 
+        text-decoration: none; /* Remove underline */
+    
+        display: inline-block; /* Keep the button block-style */
+    }
+    
+    .logout-button:hover {
+       color: #ff0000; /* Darker red on hover */
+    }
+    
+    
+    
+
+
+    
+    
+    
+
+
+
+                /* Style the chatbot button to be an icon */
+.chatbot-button {
+    background: none; /* Remove default button styling */
+    border: none;     /* Remove border */
+    padding: 0;       /* Remove padding */
+    cursor: pointer;  /* Make the button clickable */
+    position: fixed;
+    bottom: 100px;
+    right: 20px;
+    z-index: 1000; /* Make sure it's above other content */
+}
+
+/* Style the chatbot icon */
+.chatbot-icon {
+    width: 60px;  /* Adjust the size of the icon */
+    height: 60px;
+}
+                /* Chatbox */
+                .chatbox {
+                    display: none; /* Hidden by default */
+                    position: fixed;
+                    bottom: 100px;
+                    right: 20px;
+                    width: 350px;
+                    background-color: transparent; 
+                    background-color: rgba(0, 48, 0, 0.3); /* Semi-transparent green for glass effect */
+                    backdrop-filter: blur(10px); /* Frosted glass blur effect */
+                    border-radius: 10px;
+                    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.5); /* Stronger shadow */
+                    z-index: 1000;
+                }
+                
+                
+                .chatbox-header {
+                    background-color: white;
+                    color: rgb(0, 64, 0);
+                    padding: 15px;
+                    border-radius: 10px 10px 0 0;
+                    display: flex;
+                    justify-content: space-between;
+                    align-items: center;
+                }
+                
+                .chatbox-body {
+                    padding: 15px;
+                    height: 300px;
+                    overflow-y: auto;
+                }
+                
+                .chatbox-input {
+                    display: flex;
+                    padding: 15px;
+                    background-color: #f1f1f1;
+                }
+                
+                .chatbox-input input {
+                    flex: 1;
+                    padding: 10px;
+                    border-radius: 8px;
+                    border: 1px solid #ccc;
+                }
+                
+                .chatbox-input button {
+                    background-color:rgb(0, 68, 0);
+                    color: white;
+                    border: none;
+                    padding: 10px 15px;
+                    border-radius: 5px;
+                    margin-left: 10px;
+                    cursor: pointer;
+                }
+                
+                .faq-button {
+                    display: block;
+                    background-color: #f1f1f1;
+                    color: #333;
+                    border: none;
+                    padding: 10px;
+                    margin: 5px 0;
+                    cursor: pointer;
+                    width: 100%;
+                    text-align: left;
+                    font-size: 14px;
+                }
+                
+                .faq-button:hover {
+                    background-color: #ddd;
+                }
+                
+                .chatbox-message {
+                    padding: 10px;
+                    margin: 10px 0;
+                    border-radius: 8px;
+                    width: fit-content;
+                }
+                
+                .bot-message {
+                    background-color: rgb(131, 255, 131);
+                    color: #000000;
+                }
+                
+                .user-message {
+                    background-color: white;
+                    color: rgb(0, 0, 0);
+                    align-self: flex-end;
+                }
+                
+                .close-chatbox {
+                    background: none;
+                    border: none;
+                    color: rgb(249, 103, 103);
+                    font-size: 24px;
+                    cursor: pointer;
+                }
+                
+                .close-chatbox:hover {
+                    color: red;
+                }
+                .recharge-instructions {
+                    margin: 20px; /* Spacing around the container */
+                    font-family: Arial, sans-serif; /* Clean, readable font */
+                    color: #000000; /* Dark text color */
+                    font-size: 14px; /* Smaller text size */
+                }
+                
+                .recharge-instructions h3 {
+                    text-align: center; /* Center the heading */
+                    margin-bottom: 10px; /* Space below the heading */
+                    font-size: 16px; /* Slightly larger font size for the heading */
+                }
+                
+                .recharge-instructions ol {
+                    padding-left: 20px; /* Indent the ordered list */
+                }
+                
+                .recharge-instructions li {
+                    margin-bottom: 10px; /* Space between each step */
+                    line-height: 1.0; /* Increased line height for better readability */
+                }
+                #backgroundVideo {
+                    position: fixed;
+                    top: 0;
+                    left: 0;
+                    min-width: 100%;
+                    min-height: 100%;
+                    z-index: -1; /* Send the video to the background */
+                    object-fit: cover; /* Ensure the video covers the entire screen */
+                    filter: brightness(20%);  
+                }    
+    
+                .typing-indicator-container {
+                    display: flex;
+                    align-items: center;
+                }
+                
+                .typing-indicator {
+                    width: 7px;
+                    height: 7px;
+                    border-radius: 50%;
+                    background-color: gray;
+                    margin-left: 2px;
+                    margin-top: 10px;
+                    animation: wave 1s infinite ease-in-out; /* Apply wave animation */
+                }
+                
+                /* Stagger the animation for each dot */
+                .typing-indicator:nth-child(1) {
+                    animation-delay: 0s; /* First dot */
+                }
+                .typing-indicator:nth-child(2) {
+                    animation-delay: 0.2s; /* Second dot */
+                }
+                .typing-indicator:nth-child(3) {
+                    animation-delay: 0.4s; /* Third dot */
+                }
+                
+                /* Wave animation */
+                @keyframes wave {
+                    0%, 100% {
+                        transform: translateY(0);
+                    }
+                    50% {
+                        transform: translateY(-5px); /* Move up to create wave effect */
+                    }
+                }
+                
+            </style>
+
+                
+                    <video autoplay muted loop id="backgroundVideo">
+                        <source src="video-bg.mp4" type="video/mp4">
+                        Your browser does not support the video tag.
+                    </video>
+                    
+             
+ 
+                    <!-- Chatbot button with image icon -->
+                    <button class="chatbot-button" id="openChatbot">
+                        <img src="chatbot-icon.png" alt="Chatbot Icon" class="chatbot-icon"> <!-- Replace with the actual path to your icon image -->
+                    </button>
+    
+        <div class="chatbox" id="chatbox">
+            <div class="chatbox-header">
+                <span>FAQs Chatbot</span>
+                <button class="close-chatbox" id="closeChatbot">&times;</button>
+            </div>
+    
+            <div class="chatbox-body" id="chatboxBody">
+                <div class="chatbox-message bot-message">
+                    Hello! How can I help you today? Choose an option below or type your question.
+                </div>
+            </div>
+                    
+                            <div class="chatbox-faqs">
+                                <button class="faq-button" onclick="sendFaq('What is the minimum investment amount?')">What is the minimum investment amount?</button>
+                                <button class="faq-button" onclick="sendFaq('How can I withdraw my funds?')">How can I withdraw my funds?</button>
+                                <button class="faq-button" onclick="sendFaq('What are the available investment plans?')">What are the available investment plans?</button>
+                                <button class="faq-button" onclick="sendFaq('How long does it take to process withdrawals?')">How long does it take to process withdrawals?</button>
+                            </div>
+                    
+                            <div class="chatbox-input">
+                                <input type="text" id="userInput" placeholder="Type your message..." />
+                                <button id="sendMessageButton">Send</button>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    
+          
+<script> 
+    // Open and close chatbot
+    document.getElementById("openChatbot").addEventListener("click", function() {
+        document.getElementById("chatbox").style.display = "block";
+    });
+    
+    document.getElementById("closeChatbot").addEventListener("click", function() {
+        document.getElementById("chatbox").style.display = "none";
+    });
+    
+    // Function to handle FAQs selection
+    function sendFaq(faq) {
+        addMessage(faq, 'user-message'); // Add user's message
+        displayTypingIndicator(); // Show typing indicator
+        setTimeout(function() {
+            removeTypingIndicator(); // Remove typing indicator
+            autoReply(faq); // Automatically reply after a delay
+        }, 3000);
+    }
+    
+    document.getElementById('sendMessageButton').addEventListener('click', function() {
+        const userMessage = document.getElementById('userInput').value;
+        if (userMessage.trim() === "") return;
+    
+        appendUserMessage(userMessage);
+        displayTypingIndicator();
+    
+        // Simulate typing and bot response
+        setTimeout(() => {
+            removeTypingIndicator();
+            appendBotMessage("This is a response to your message: " + userMessage);
+        }, 3000);  // 2 seconds delay to simulate typing
+    });   
+    function appendUserMessage(message) {
+        const chatboxBody = document.getElementById('chatboxBody');
+        const userMessageElement = document.createElement('div');
+        userMessageElement.className = 'chatbox-message user-message';
+        userMessageElement.innerText = message;
+        chatboxBody.appendChild(userMessageElement);
+        chatboxBody.scrollTop = chatboxBody.scrollHeight; // Auto scroll to bottom
+    }   
+    function appendBotMessage(message) {
+        const chatboxBody = document.getElementById('chatboxBody');
+        const botMessageElement = document.createElement('div');
+        botMessageElement.className = 'chatbox-message bot-message';
+        botMessageElement.innerHTML = message; // Allow HTML content
+        chatboxBody.appendChild(botMessageElement);
+        chatboxBody.scrollTop = chatboxBody.scrollHeight; // Auto scroll to bottom
+    }  
+    function displayTypingIndicator() {
+        const chatboxBody = document.getElementById('chatboxBody');
+        const typingIndicator = document.createElement('div');
+        typingIndicator.className = 'typing-indicator-container';
+        typingIndicator.id = 'typingIndicator';
+        typingIndicator.innerHTML = `
+            <span class="typing-indicator"></span>
+            <span class="typing-indicator"></span>
+            <span class="typing-indicator"></span>
+        `;
+        chatboxBody.appendChild(typingIndicator);
+        chatboxBody.scrollTop = chatboxBody.scrollHeight; // Auto scroll to bottom
+    }
+    function removeTypingIndicator() {
+        const typingIndicator = document.getElementById('typingIndicator');
+        if (typingIndicator) {
+            typingIndicator.remove();
+        }
+    }   
+    function addMessage(text, className) {
+        const message = document.createElement("div");
+        message.className = "chatbox-message " + className;
+        message.innerHTML = text; // Use innerHTML to render HTML content
+        document.getElementById("chatboxBody").appendChild(message);
+        document.getElementById("chatboxBody").scrollTop = document.getElementById("chatboxBody").scrollHeight;
+    }   
+    // Auto-reply based on user input (Investment Platform)
+    function autoReply(userInput) {
+        let reply = '';
+    
+        switch (userInput.trim().toLowerCase()) {  // Using trim() to remove extra spaces
+            case 'what is the minimum investment?':
+            case 'minimum investment?':
+            case 'what is the minimum investment amount?':
+            case 'what’s the minimum investment?':  // Another phrasing variation
+            reply = `
+            <div class="recharge-instructions">
+                <h3>How to Recharge Your Account Step by Step:</h3>
+                <ol>
+                    <li><strong>Select an amount to recharge</strong> or enter a custom amount (minimum ₱300).</li>
+                    <li><strong>Choose your preferred payment method</strong> (GCash or PayPal).</li>
+                    <li><strong>For GCash users:</strong>
+                        <ul>
+                            <li>Scan the QR code above or click the provided link to open your GCash app.</li>
+                        </ul>
+                    </li>
+                    <li><strong>Enter the payment details</strong> and confirm the payment.</li>
+                    <li><strong>Once payment is confirmed,</strong> click "Complete Recharge" to finalize your transaction.</li>
+                    <li><strong>Once the payment is successful,</strong> your recharge amount will be displayed in your balance.</li>
+                </ol>
+            </div>
+        `;
+        break;
+            case 'how can i withdraw my funds?':
+                reply = 'You can withdraw your funds through the "Withdraw" section of your account.';
+                break;
+            case 'what are the available investment plans?':
+                reply = 'We offer various investment plans, including short-term and long-term options.';
+                break;
+            case 'how long does it take to process withdrawals?':
+                reply = 'Withdrawals are typically processed within 24-48 hours.';
+                break;
+            default:
+                reply = 'Sorry, I didn’t understand that. Please try again or choose one of the available FAQs.';
+        }
+        appendBotMessage(reply);
+    }
+</script>
+    
+<div class="mine-container">
+    <h1 class="title">VeilVest</h1>
+
+    <div class="registered-number-container">
+        <div class="profile-picture-container">
+            <img src="profile-pic-placeholder.png" alt="Profile Picture" class="profile-picture"> 
+            <input type="file" id="profilePicInput" accept="image/*" class="profile-pic-input" onchange="previewProfilePicture(event)" style="display:none;"> <!-- Hidden file input -->
+            <label for="profilePicInput" class="add-profile-pic">+</label> 
+        </div>
+
+        <div class="registered-number">
+            <p>Registered No.</p>
+            <h2 id="registeredNumber">[Registered Number]</h2> 
+        </div>
+    </div>
+
+    <div class="account-balance">
+        <h3>₱00.00</h3>
+        <p>Account Balance</p>
+    </div>
+
+    <script>
+        // Function to update balance display
+        function updateBalanceDisplay() {
+            // Select the balance display element
+            const balanceDisplay = document.querySelector('.account-balance h3');
+
+            // Load balance from local storage
+            const currentBalance = parseFloat(localStorage.getItem('currentBalance')) || 0;
+
+            // Update display with formatted balance
+            balanceDisplay.textContent = `₱${currentBalance.toFixed(2)}`;
+        }
+
+        // Call the function on page load to show the current balance
+        document.addEventListener('DOMContentLoaded', () => {
+            updateBalanceDisplay(); // Initial call to update balance
+        });
+
+        // Set an interval to update the balance display every 24 hours
+        setInterval(updateBalanceDisplay, 86400000); // Update display every 24 hours
+
+        // Example: Call updateBalanceDisplay after any changes to the balance
+        // This function would be called in any other scripts where the balance changes
+        function onBalanceChange() {
+            updateBalanceDisplay();
+        }
+    </script>
+
+    <div class="button-group">
+        <a href="recharge.html" class="button">
+            <img src="recharge-icon.png" alt="Recharge Icon" class="button-icon">
+            <span class="button-label">Recharge</span>
+        </a>
+        <a href="withdraw.html" class="button">
+            <img src="withdraw-icon.png" alt="Withdraw Icon" class="button-icon">
+            <span class="button-label">Withdraw</span>
+        </a>
+        <a href="treasure.html" class="button">
+            <img src="treasure-icon.png" alt="Treasure Icon" class="button-icon">
+            <span class="button-label">Treasure</span>
+        </a>
+    </div>
+
+    <div class="record-buttons">
+        <div class="row">
+            <a href="invest.html" class="button">
+                <img src="my-orders-icon.png" alt="My Orders Icon" class="button-icon">
+                <span class="button-label">My Orders</span>
+            </a>
+            <a href="bank-account.html" class="button">
+                <img src="bank-account-icon.png" alt="Bank Account Icon" class="button-icon">
+                <span class="button-label">Bank Account</span>
+            </a>
+            <a href="reset-password.html" class="button">
+                <img src="login-password-icon.png" alt="Login Password Icon" class="button-icon">
+                <span class="button-label">Login Password</span>
+            </a>
+        </div>
+        <div class="row">
+            <a href="recharge-records.html" class="button">
+                <img src="recharge-records-icon.png" alt="Recharge Records Icon" class="button-icon">
+                <span class="button-label">Recharge Records</span>
+            </a>
+            <a href="withdrawal-records.html" class="button">
+                <img src="withdrawal-records-icon.png" alt="Withdrawal Records Icon" class="button-icon">
+                <span class="button-label">Withdrawal Records</span>
+            </a>
+            <a href="fundingrecords.html" class="button">
+                <img src="funding-records-icon.png" alt="Funding Records Icon" class="button-icon">
+                <span class="button-label">Funding Records</span>
+            </a>
+        </div>
+        <div class="download-row">
+            <a href="app-download.html" class="button full-width">
+                <img src="app-download-icon.png" alt="App Download Icon" class="button-icon">
+            </a>
+        </div>
+
+        <div class="logout-row">
+            <a href="#" id="logoutLink" class="logout-button">Logout</a>
+        </div>
+        
+    
+        
+                            
+                                    <script>
+                                        // Logout and user validation logic
+                                        window.onload = function() {
+                                            const loggedInUser = localStorage.getItem('loggedInUser');
+                                            const registeredUsers = JSON.parse(localStorage.getItem('registeredUsers')) || [];
+                                            
+                                            if (!loggedInUser || registeredUsers.length === 0 || !registeredUsers.find(user => user.phone === loggedInUser)) {
+                                                alert("Oops! You need to register before accessing your account.");
+                                                window.location.href = 'login.html';
+                                                return; // Stop further execution
+                                            }
+                            
+                                            // Load registered number
+                                            displayRegisteredNumber();
+                            
+                                            // Load profile picture
+                                            loadProfilePicture();
+                                        };
+                            
+                                        // Logout functionality
+                                        document.getElementById('logoutLink').addEventListener('click', function(e) {
+                                            e.preventDefault();
+                                            if (confirm("Are you sure you want to log out?")) {
+                                                localStorage.removeItem('loggedInUser'); // Clear user session
+                                                alert("You have successfully logged out.");
+                                                window.location.href = 'login.html';
+                                            }
+                                        });
+                            
+                                        // Function to display the registered number
+                                        function displayRegisteredNumber() {
+                                            const registeredNumber = localStorage.getItem('registeredNumber');
+                                            if (registeredNumber) {
+                                                document.getElementById('registeredNumber').textContent = registeredNumber;
+                                            } else {
+                                                document.getElementById('registeredNumber').textContent = 'No number registered';
+                                            }
+                                        }
+                            
+                                        // Function to preview the selected profile picture and save it to local storage
+                                        function previewProfilePicture(event) {
+                                            const file = event.target.files[0];
+                                            if (file) {
+                                                const reader = new FileReader();
+                                                reader.onload = function(e) {
+                                                    const profilePic = document.querySelector('.profile-picture');
+                                                    profilePic.src = e.target.result;
+                                                    localStorage.setItem('profilePicture', e.target.result); // Save to local storage
+                                                };
+                                                reader.readAsDataURL(file); 
+                                            }
+                                        }
+                            
+                                        // Function to load the profile picture from local storage
+                                        function loadProfilePicture() {
+                                            const storedPic = localStorage.getItem('profilePicture');
+                                            const profilePic = document.querySelector('.profile-picture');
+                                            if (storedPic) {
+                                                profilePic.src = storedPic;
+                                            }
+                                        }
+                                    </script>
+    </div>
+</div>
+
+</div>
+
+<footer class="footer">
+    <div class="footer-icons">
+        <a href="dashboard.html" class="footer-item">
+            <img src="home-icon.png" alt="Home" class="footer-icon">
+            <span class="icon-label">Home</span>
+        </a>
+        <a href="invest.html" class="footer-item">
+            <img src="invest-icon.png" alt="Invest" class="footer-icon">
+            <span class="icon-label">Invest</span>
+        </a>
+        <a href="teams.html" class="footer-item">
+            <img src="team-icon.png" alt="Teams" class="footer-icon">
+            <span class="icon-label">Teams</span>
+        </a>
+        <a href="mine.html" id="logoutLink" class="footer-item">
+            <img src="mine-icon.png" alt="Mine" class="footer-icon">
+            <span class="icon-label">Mine</span>
+        </a>
+    </div>
+</footer>
+<style>
+        .footer {
+            background-color: rgba(0, 128, 0, 0.3); /* Semi-transparent green for glass effect */
+            padding: 10px 0;
+            position: fixed;
+            bottom: 0;
+            width: 100%;
+            left: 0;
+            border-radius: 15px;
+            backdrop-filter: blur(10px); /* Frosted glass blur effect */
+            box-shadow: 0 4px 10px rgba(0, 255, 0, 0.4), 0 2px 20px rgba(0, 128, 0, 0.6); /* Green glowing effect */
+            border: 1px solid rgba(255, 255, 255, 0.2); /* Light border for glass effect */
+            transition: box-shadow 0.3s ease; /* Smooth transition effect */
+        }
+        
+        .footer:hover {
+            box-shadow: 0 6px 15px rgba(0, 255, 0, 0.6), 0 4px 25px rgba(0, 128, 0, 0.8); /* Brighter shine on hover */
+        }
+        
+        .footer-icons {
+            display: flex;
+            justify-content: space-around;
+        }
+        
+        .footer-item {
+            display: flex;
+            flex-direction: column; /* Stack icon and label vertically */
+            align-items: center; /* Center the icon and label */
+            text-decoration: none; /* Remove underline from links */
+        }
+        
+        .footer-icon {
+            width: 40px;
+            height: 40px;
+            filter: brightness(0) invert(1); /* Make the icon white */
+        }
+        
+        .icon-label {
+            color: white; /* White text for the labels */
+            font-size: 14px; /* Adjust size of the label text */
+            margin-top: 5px; /* Space between icon and label */
+        }
+    </style>
+    
+
+</div>
+
+
+</body>
+</html>

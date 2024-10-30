@@ -1,0 +1,322 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sign Up</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #f4f6f8;
+            color: #fbfbfb;
+            text-align: center;
+            margin: 0;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 500px;
+            margin: auto;
+            padding: 20px;
+            background: #ffffff;
+            border-radius: 10px;
+            background-color: #ffffff;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+            margin-top: -20px;
+            background: rgba(255, 255, 255, 0.1); /* Base translucent background */
+            -webkit-backdrop-filter: blur(12px);
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            box-shadow: 0 4px 8px rgba(255, 255, 255, 0.2), 0 0 10px rgba(255, 255, 255, 0.4); /* Outer glow */
+            position: relative;
+            overflow: hidden;
+            margin-bottom: 50px;
+            height: 500px;
+        
+        }
+        
+        
+
+        h2 {
+            margin-bottom: 20px;
+            color: #ffffff;
+        }
+
+        .info-section {
+            border: 1px solid #ccc;
+            border-radius: 10px;
+            padding: 10px;
+            margin-bottom: 20px;
+        }
+
+        .info-section div {
+            display: flex;
+            justify-content: space-between;
+            padding: 10px;
+            font-size: 1.1em;
+        }
+
+        .button {
+            background-color: #27ae60;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            padding: 10px 20px;
+            font-size: 1.2em;
+            cursor: pointer;
+            margin-top: 10px;
+            transition: background-color 0.3s;
+        }
+
+        .button:hover {
+            background-color: #219150;
+        }
+
+        .delete-button {
+            background-color: #e74c3c; /* Red color for delete button */
+        }
+
+        .delete-button:hover {
+            background-color: #c0392b; /* Darker red on hover */
+        }
+
+        .instructions {
+            margin-top: 20px;
+            font-size: 0.9em;
+            text-align: left;
+            color: #bdbdbd;
+        }
+
+        .message {
+            color: #e74c3c; /* Default color for messages */
+            margin-top: 30px;
+            font-weight: normal;
+            animation: none;
+        }
+
+        @keyframes shake {
+            0%, 100% { transform: translateX(0); }
+            25% { transform: translateX(-5px); }
+            50% { transform: translateX(5px); }
+            75% { transform: translateX(-5px); }
+        }
+
+        .shake {
+            animation: shake 0.5s;
+        }
+        
+        #backgroundVideo {
+            position: fixed;
+            top: 0;
+            left: 0;
+            min-width: 100%;
+            min-height: 100%;
+            z-index: -1; /* Send the video to the background */
+            object-fit: cover; /* Ensure the video covers the entire screen */
+            filter: brightness(20%);  
+        }         
+    </style>
+</head>
+<body>
+    
+    <video autoplay muted loop id="backgroundVideo">
+        <source src="video-bg.mp4" type="video/mp4">
+        Your browser does not support the video tag.
+    </video>
+
+    
+    
+    <div class="container">
+        <h2>Sign Up</h2>
+    
+        <div class="info-section">
+            <div>
+                <span>Number of times available:</span>
+                <span id="times-available">0</span>
+            </div>
+            <div>
+                <span>Total Sign-in:</span>
+                <span id="total-signin">0</span>
+            </div>
+            <div>
+                <span>Sign-in Rewards:</span>
+                <span id="signin-rewards">₱0.00</span>
+            </div>
+        </div>
+    
+        <button class="button" id="signin-button">Sign-in successfully today</button>
+        <button class="button delete-button" id="delete-button">Delete Sign-in Data</button>
+    
+        <div class="instructions">
+            <h3>Sign-in Instructions</h3>
+            <ol>
+                <li>All registered users can receive sign-in benefits.</li>
+                <li>You can receive PHP 1.00 every time you sign in.</li>
+            </ol>
+        </div>
+        
+        <div class="message" id="message"></div>
+    </div>
+    
+    <script>
+        const SIGN_IN_REWARD = 1.00; // Define the sign-in reward amount
+    
+        // Function to update the sign-in data from localStorage
+        function updateSignInData() {
+            const timesAvailable = localStorage.getItem('timesAvailable') || 0;
+            const totalSignIn = localStorage.getItem('totalSignIn') || 0;
+            const signinRewards = parseFloat(localStorage.getItem('signinRewards')) || 0;
+    
+            document.getElementById('times-available').textContent = timesAvailable;
+            document.getElementById('total-signin').textContent = totalSignIn;
+            document.getElementById('signin-rewards').textContent = `₱${signinRewards.toFixed(2)}`;
+        }
+    
+        // Function to handle sign-in
+        function handleSignIn() {
+            const lastSignInDate = localStorage.getItem('lastSignInDate');
+            const today = new Date().toISOString().split('T')[0]; // Get current date in YYYY-MM-DD format
+    
+            if (lastSignInDate === today) {
+                showMessage("You have already signed in today. Please come back tomorrow.", false);
+                return;
+            }
+    
+            // Update sign-in data
+            let timesAvailable = parseInt(localStorage.getItem('timesAvailable')) || 0;
+            let totalSignIn = parseInt(localStorage.getItem('totalSignIn')) || 0;
+            let signinRewards = parseFloat(localStorage.getItem('signinRewards')) || 0;
+    
+            timesAvailable++;
+            totalSignIn++;
+            signinRewards += SIGN_IN_REWARD; // Add PHP 1.00 to rewards
+    
+            // Save updated data in localStorage
+            localStorage.setItem('timesAvailable', timesAvailable);
+            localStorage.setItem('totalSignIn', totalSignIn);
+            localStorage.setItem('signinRewards', signinRewards);
+            localStorage.setItem('lastSignInDate', today);
+    
+            // Update account balance (assuming balance is stored in localStorage)
+            let currentBalance = parseFloat(localStorage.getItem('currentBalance')) || 0;
+            currentBalance += SIGN_IN_REWARD; // Add PHP 1.00 to the account balance
+            localStorage.setItem('currentBalance', currentBalance.toFixed(2));
+    
+            // Update the UI
+            updateSignInData();
+            showMessage("Sign-in successful! You received PHP 1.00.", true);
+        }
+    
+        // Function to delete sign-in data
+        function deleteSignInData() {
+            if (confirm("Are you sure you want to delete all sign-in data? This action cannot be undone.")) {
+                localStorage.removeItem('timesAvailable');
+                localStorage.removeItem('totalSignIn');
+                localStorage.removeItem('signinRewards');
+                localStorage.removeItem('lastSignInDate');
+                showMessage("Sign-in data has been deleted.", true);
+                updateSignInData(); // Refresh the display
+            }
+        }
+    
+        // Function to show message with shake effect
+        function showMessage(message, isSuccess = false) {
+            const messageElement = document.getElementById('message');
+            messageElement.textContent = message;
+    
+            // Set color based on success or failure
+            messageElement.style.color = isSuccess ? 'green' : 'red';
+    
+            // Add shake effect class
+            messageElement.classList.add('shake');
+    
+            // Remove shake class after animation
+            setTimeout(() => {
+                messageElement.classList.remove('shake');
+            }, 500);
+    
+            // Clear the message after a delay
+            setTimeout(() => {
+                messageElement.textContent = '';
+            }, 5000);
+        }
+    
+        // Initial function calls when the page loads
+        document.addEventListener('DOMContentLoaded', () => {
+            updateSignInData();
+            document.getElementById('signin-button').addEventListener('click', handleSignIn);
+            document.getElementById('delete-button').addEventListener('click', deleteSignInData);
+        });
+    </script>
+    
+
+
+
+   
+    <footer class="footer">
+        <div class="footer-icons">
+            <a href="dashboard.html" class="footer-item">
+                <img src="home-icon.png" alt="Home" class="footer-icon">
+                <span class="icon-label">Home</span>
+            </a>
+            <a href="invest.html" class="footer-item">
+                <img src="invest-icon.png" alt="Invest" class="footer-icon">
+                <span class="icon-label">Invest</span>
+            </a>
+            <a href="teams.html" class="footer-item">
+                <img src="team-icon.png" alt="Teams" class="footer-icon">
+                <span class="icon-label">Teams</span>
+            </a>
+            <a href="mine.html" id="logoutLink" class="footer-item">
+                <img src="mine-icon.png" alt="Mine" class="footer-icon">
+                <span class="icon-label">Mine</span>
+            </a>
+        </div>
+    </footer>
+    <style>
+        .footer {
+            background-color: rgba(0, 128, 0, 0.3); /* Semi-transparent green for glass effect */
+            padding: 10px 0;
+            position: fixed;
+            bottom: 0;
+            width: 100%;
+            left: 0;
+            border-radius: 15px;
+            backdrop-filter: blur(10px); /* Frosted glass blur effect */
+            box-shadow: 0 4px 10px rgba(0, 255, 0, 0.4), 0 2px 20px rgba(0, 128, 0, 0.6); /* Green glowing effect */
+            border: 1px solid rgba(255, 255, 255, 0.2); /* Light border for glass effect */
+            transition: box-shadow 0.3s ease; /* Smooth transition effect */
+        }
+        
+        .footer:hover {
+            box-shadow: 0 6px 15px rgba(0, 255, 0, 0.6), 0 4px 25px rgba(0, 128, 0, 0.8); /* Brighter shine on hover */
+        }
+        
+        .footer-icons {
+            display: flex;
+            justify-content: space-around;
+        }
+        
+        .footer-item {
+            display: flex;
+            flex-direction: column; /* Stack icon and label vertically */
+            align-items: center; /* Center the icon and label */
+            text-decoration: none; /* Remove underline from links */
+        }
+        
+        .footer-icon {
+            width: 40px;
+            height: 40px;
+            filter: brightness(0) invert(1); /* Make the icon white */
+        }
+        
+        .icon-label {
+            color: white; /* White text for the labels */
+            font-size: 14px; /* Adjust size of the label text */
+            margin-top: 5px; /* Space between icon and label */
+        }
+    </style>
+    
+
+</body>
+</html>

@@ -1,0 +1,342 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Recharge Your Account</title>
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+        
+        body {
+            font-family: Arial, sans-serif;
+            display: flex;
+            min-height: 120vh;
+            flex-direction: column;
+            background-color: #f9f9f9; /* Light background color */
+            color: #ffffff; /* Dark text color */
+        }
+
+        .recharge-container {
+            
+            max-width: 500px; /* Max width for better readability */
+            margin: auto; /* Center the container */
+            padding: 20px; /* Padding around the content */
+            border-radius: 10px;
+            background-color: #ffffff;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+            margin-top: 0px;
+            background: rgba(255, 255, 255, 0.1); /* Base translucent background */
+            -webkit-backdrop-filter: blur(12px);
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            box-shadow: 0 4px 8px rgba(255, 255, 255, 0.2), 0 0 10px rgba(255, 255, 255, 0.4); /* Outer glow */
+            border-radius: 8px; /* Rounded corners */
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1); /* Subtle shadow */
+            text-align: center; /* Centered text */
+ 
+        
+        }
+
+
+    
+
+        
+        .form-group input, .form-group select {
+            margin-bottom: 20px;
+            width: 70%; /* Full width for input fields */
+            padding: 10px; /* Larger padding for bigger input fields */
+            border-radius: 8px; /* Rounded input fields */
+            border: 1px solid #ccc;
+            font-size: 18px; /* Larger font size for better readability */
+        }
+
+        h2 {
+            margin-top: 10px;
+            margin-bottom: 40px; /* Space below the heading */
+        }
+
+        label {
+            display: block; /* Block display for labels */
+            margin-bottom: 10px; /* Space below label */
+            font-weight: bold; /* Bold font for labels */
+        }
+
+        input[type="number"] {
+            width: calc(90% - 20px); /* Full width minus padding */
+            padding: 10px; /* Padding inside input */
+            margin-bottom: 20px; /* Space below input */
+            border: 1px solid #ccc; /* Light border */
+            border-radius: 8px; /* Rounded corners */
+            font-size: 16px; /* Font size for input */
+        }
+
+        .amount-options {
+            display: flex; /* Flexbox for horizontal buttons */
+            justify-content: space-between; /* Space between buttons */
+            margin-bottom: 20px; /* Space below amount options */
+        }
+
+        .amount-button {
+            flex: 1; /* Flex-grow for equal size */
+            margin: 0 2px; /* Margin between buttons */
+            padding: 5px; /* Padding inside buttons */
+           
+            color: rgb(0, 0, 0); /* White text */
+            border: none; /* No border */
+            border-radius: 8px; /* Rounded corners */
+            cursor: pointer; /* Pointer cursor on hover */
+            font-size: 16px; /* Font size for buttons */
+            transition: background-color 0.3s; /* Transition effect */
+        }
+
+        .amount-button:hover {
+           color: green;
+        }
+
+        .minimum-amount {
+            margin-top: 10px; /* Space above minimum amount text */
+            margin-bottom: 20px;
+            color: #aaaaaa; /* Gray color for minimum amount text */
+        }
+
+     
+        img {
+            width: 100%; /* Full width for the QR code */
+            height: auto; /* Maintain aspect ratio */
+            max-width: 200px; /* Max width for image */
+            margin: 0 auto; /* Center the image */
+        }
+
+        .recharge-button {
+            margin-top: 30px; /* Space above recharge button */
+            padding: 10px 20px; /* Padding for button */
+            background-color: #28a745; /* Green button color */
+            color: #fff; /* White text */
+            border: none; /* No border */
+            border-radius: 4px; /* Rounded corners */
+            cursor: pointer; /* Pointer cursor */
+            font-size: 16px; /* Font size for button */
+            transition: background-color 0.3s; /* Transition effect */
+        }
+
+        .recharge-button:hover {
+            background-color: #218838; /* Darker green on hover */
+        }
+        
+        #backgroundVideo {
+            position: fixed;
+            top: 0;
+            left: 0;
+            min-width: 100%;
+            min-height: 100%;
+            z-index: -1; /* Send the video to the background */
+            object-fit: cover; /* Ensure the video covers the entire screen */
+            filter: brightness(20%);  
+        }        
+            </style>
+        </head>
+        <body>
+            <video autoplay muted loop id="backgroundVideo">
+                <source src="video-bg.mp4" type="video/mp4">
+                Your browser does not support the video tag.
+            </video>
+       
+
+
+
+            <div class="recharge-container">  
+                <h2>Recharge Your Account</h2>
+            
+                <label for="rechargeAmount">Enter Amount to Recharge:</label>
+                <input type="number" id="rechargeAmount" name="rechargeAmount" placeholder="₱" min="50" required>
+            
+                <div class="amount-options">
+                    <button class="amount-button" onclick="setRechargeAmount(300)">₱300</button>
+                    <button class="amount-button" onclick="setRechargeAmount(700)">₱700</button>
+                    <button class="amount-button" onclick="setRechargeAmount(1500)">₱1500</button>
+                    <button class="amount-button" onclick="setRechargeAmount(3000)">₱3000</button>
+                    <button class="amount-button" onclick="setRechargeAmount(5000)">₱5000</button>
+                </div>
+            
+                <div class="minimum-amount">
+                    Minimum recharge amount is ₱300.
+                </div>
+            
+                <div class="form-group">
+                    <label for="rechargeMethod">Withdrawal Method:</label>
+                    <select id="rechargeMethod" required>
+                        <option value="" disabled selected>Select a method</option>
+                        <option value="paypal">PayPal</option>
+                        <option value="ewallet">GCash</option>
+                    </select>
+                </div>
+
+            
+                <p>Or click <a href="https://yourwebsite.com/path/to/your-qr-code.png" target="_blank">here</a> to go to your GCash QR code for payment.</p>
+            
+                <button class="recharge-button" onclick="completeRecharge()">Complete Recharge</button>
+            
+                <div class="reset-container" onclick="resetBalance()">
+                    <img src="reset.png" alt="Reset Balance" class="reset-icon">
+                </div>
+                <style>
+                    .reset-container {
+                        display: flex; /* Use flexbox for layout */
+                        align-items: center; /* Center items vertically */
+                        cursor: pointer; /* Change cursor to pointer to indicate it's clickable */
+                        margin-top: 20px;
+                        margin-bottom: 30px; /* Space between the button and reset icon */
+                    }
+                    
+                    .reset-icon {
+                        width: 24px; /* Set the width of the reset icon */
+                        height: 24px; /* Set the height of the reset icon */
+                        transition: transform 0.3s; /* Add a transition for hover effect */
+                    }
+                    
+                    /* Optional: Add hover effect */
+                    .reset-container:hover .reset-icon {
+                        transform: scale(1.1); /* Slightly enlarge the icon on hover */
+                    }
+                    
+            
+                    
+                </style>
+                <div id="responseMessage"></div>
+            </div>
+            
+          
+            
+            
+            <script>
+                function resetBalance() {
+                    localStorage.setItem('currentBalance', '0.00');
+                    alert('Your account balance has been reset to zero.');
+                    updateBalanceDisplay(); // Update displayed balance on this page
+                }
+            
+                function updateBalanceDisplay() {
+                    const currentBalance = parseFloat(localStorage.getItem('currentBalance')) || 0;
+                    const balanceDisplays = document.querySelectorAll('.account-balance h3');
+                    balanceDisplays.forEach(balanceDisplay => {
+                        balanceDisplay.innerText = `Account Balance: ₱${currentBalance.toFixed(2)}`; // Update displayed balance
+                    });
+                }
+            
+                function setRechargeAmount(amount) {
+                    document.getElementById('rechargeAmount').value = amount;
+                }
+            
+                function completeRecharge() {
+                    const rechargeInput = document.getElementById('rechargeAmount');
+                    const rechargeAmount = parseFloat(rechargeInput.value);
+                    const method = document.getElementById('rechargeMethod').value;
+            
+                    if (isNaN(rechargeAmount) || rechargeAmount < 300) {
+                        alert("Please enter a valid recharge amount (minimum ₱300).");
+                        return;
+                    }
+            
+                    if (!method) {
+                        alert("Please select a withdrawal method.");
+                        return;
+                    }
+            
+                    let currentBalance = parseFloat(localStorage.getItem('currentBalance')) || 0;
+                    currentBalance += rechargeAmount;
+            
+                    localStorage.setItem('currentBalance', currentBalance.toFixed(2));
+            
+                    const rechargeRecord = {
+                        date: new Date().toLocaleString(),
+                        amount: rechargeAmount,
+                        method: method
+                    };
+            
+                    const rechargeRecords = JSON.parse(localStorage.getItem('rechargeRecords')) || [];
+                    rechargeRecords.push(rechargeRecord);
+                    localStorage.setItem('rechargeRecords', JSON.stringify(rechargeRecords));
+            
+                    alert(`Recharge successful! Your new balance is ₱${currentBalance.toFixed(2)}`);
+                    rechargeInput.value = '';
+                    document.getElementById('rechargeMethod').selectedIndex = 0;
+            
+                    updateBalanceDisplay(); // Update balance display after recharge
+                }
+            
+                document.addEventListener('DOMContentLoaded', updateBalanceDisplay);
+            </script>
+            
+  
+     
+            <footer class="footer">
+                <div class="footer-icons">
+                    <a href="dashboard.html" class="footer-item">
+                        <img src="home-icon.png" alt="Home" class="footer-icon">
+                        <span class="icon-label">Home</span>
+                    </a>
+                    <a href="invest.html" class="footer-item">
+                        <img src="invest-icon.png" alt="Invest" class="footer-icon">
+                        <span class="icon-label">Invest</span>
+                    </a>
+                    <a href="teams.html" class="footer-item">
+                        <img src="team-icon.png" alt="Teams" class="footer-icon">
+                        <span class="icon-label">Teams</span>
+                    </a>
+                    <a href="mine.html" id="logoutLink" class="footer-item">
+                        <img src="mine-icon.png" alt="Mine" class="footer-icon">
+                        <span class="icon-label">Mine</span>
+                    </a>
+                </div>
+            </footer>
+            <style>
+                .footer {
+                    background-color: rgba(0, 128, 0, 0.3); /* Semi-transparent green for glass effect */
+                    padding: 10px 0;
+                    position: fixed;
+                    bottom: 0;
+                    left: 0;
+                    width: 100%;
+                    border-radius: 15px;
+                    backdrop-filter: blur(10px); /* Frosted glass blur effect */
+                    box-shadow: 0 4px 10px rgba(0, 255, 0, 0.4), 0 2px 20px rgba(0, 128, 0, 0.6); /* Green glowing effect */
+                    border: 1px solid rgba(255, 255, 255, 0.2); /* Light border for glass effect */
+                    transition: box-shadow 0.3s ease; /* Smooth transition effect */
+                }
+                
+                .footer:hover {
+                    box-shadow: 0 6px 15px rgba(0, 255, 0, 0.6), 0 4px 25px rgba(0, 128, 0, 0.8); /* Brighter shine on hover */
+                }
+                
+                .footer-icons {
+                    display: flex;
+                    justify-content: space-around;
+                }
+                
+                .footer-item {
+                    display: flex;
+                    flex-direction: column; /* Stack icon and label vertically */
+                    align-items: center; /* Center the icon and label */
+                    text-decoration: none; /* Remove underline from links */
+                }
+                
+                .footer-icon {
+                    width: 40px;
+                    height: 40px;
+                    filter: brightness(0) invert(1); /* Make the icon white */
+                }
+                
+                .icon-label {
+                    color: white; /* White text for the labels */
+                    font-size: 14px; /* Adjust size of the label text */
+                    margin-top: 5px; /* Space between icon and label */
+                }
+            </style>
+        
+
+</body>
+</html>

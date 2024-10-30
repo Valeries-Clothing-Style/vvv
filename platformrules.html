@@ -1,0 +1,240 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Platform Rules</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #f9f9f9;
+            color: #333;
+            margin: 0;
+            padding: 0;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 40px auto;
+            padding: 30px;
+            background-color: #ffffff;
+            border-radius: 10px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+            margin-bottom: 100px;
+            margin-top: 10px;
+        }
+
+        h2 {
+            text-align: center;
+            color: #2c3e50;
+            margin-bottom: 30px;
+            border-bottom: 2px solid #2980b9;
+            padding-bottom: 10px;
+        }
+
+        .rules-list {
+            text-align: justify; /* Justify text */
+            margin: 20px 0;
+            font-size: 1.1em;
+            line-height: 1.6;
+        }
+
+        ol, ul {
+            margin-left: 20px;
+            margin-bottom: 20px;
+        }
+
+        .button {
+            display: block;
+            width: 90%;
+            background-color: #2980b9;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            padding: 10px;
+            font-size: 1.2em;
+            cursor: pointer;
+            transition: background-color 0.3s;
+            text-align: center;
+            text-decoration: none;
+            margin-top: 50px;
+            margin-left: 30px;
+            margin-bottom: 50px;
+        }
+
+        .button:hover {
+            background-color: #1c6692;
+        }
+
+        .footer {
+            margin-top: 30px;
+            text-align: center;
+            font-size: 0.9em;
+            color: #888;
+        }
+
+        .red-text {
+            color: #cb4131; /* Red color */
+        }
+
+        .important {
+            color: #e74c3c; /* Red for emphasis */
+            font-weight: bold;
+        }
+
+        /* Message shake animation */
+        @keyframes shake {
+            0%, 100% { transform: translateX(0); }
+            25% { transform: translateX(-5px); }
+            75% { transform: translateX(5px); }
+        }
+
+        .message {
+            background-color: #ffeeba;
+            border: 1px solid #ffeeba;
+            color: #856404;
+            padding: 10px;
+            border-radius: 5px;
+            animation: shake 0.5s ease infinite;
+        }
+
+        .medium-image {
+            width: 300px;
+            height: auto;
+            display: block; /* Center image block */
+            margin: 0 auto; /* Center image */
+        }
+        #backgroundVideo {
+            position: fixed;
+            top: 0;
+            left: 0;
+            min-width: 100%;
+            min-height: 100%;
+            z-index: -1; /* Send the video to the background */
+            object-fit: cover; /* Ensure the video covers the entire screen */
+            filter: brightness(20%);  
+        }
+    </style>
+</head>
+<body>
+    <video autoplay muted loop id="backgroundVideo">
+        <source src="video-bg.mp4" type="video/mp4">
+        Your browser does not support the video tag.
+    </video>
+<div class="container">
+    <h2>Platform Rules</h2>
+    <div class="rules-list">
+        <div class="message">
+            <p><strong>Important:</strong> Please adhere to the sign-in rules. Only one sign-in per day is allowed!</p>
+        </div>
+
+        <p><strong>Invitation Registration Rewards:</strong></p>
+        <ol>
+            <li>Register and automatically get PHP 25.00</li>
+            <li>Daily sign-in reward PHP 1.00</li>
+            <li>Each invitation registration automatically gets PHP 2.00, up to PHP 20.00</li>
+            <li>Join the WhatsApp group and receive discount codes from time to time</li>
+        </ol>
+
+        <p><strong>How to Invest?</strong></p>
+        <p>Please refer to the product profit chart, select the product you wish to invest in, and recharge to purchase it. Once purchased, the product will automatically generate profit every 24 hours.</p>
+        <p>
+            <img src="your-image-url.jpg" alt="Product Profit Chart" class="medium-image">
+        </p>
+
+        <p><strong>Team Benefits:</strong></p>
+        <ul>
+            <li>5% cash bonus for each top-up.</li>
+            <li>You can create your own team. When your team members invest, you receive a 10% rebate on their first investment amount. The rebates are divided into three levels: 5% for the first level, 3% for the second level, and 2% for the third level.</li>
+        </ul>
+
+        <p><strong>For example:</strong></p>
+        <ul>
+            <li>Level 1: New member invests 3000 PHP in iPhone 16 products for the first time and receives 150 PHP cash bonus.</li>
+            <li>Level 2: New member invests 3000 PHP in iPhone 16 products for the first time and receives 90 PHP cash bonus.</li>
+            <li>Level 3: New member invests 3000 PHP in iPhone 16 products for the first time and receives 30 PHP cash bonus.</li>
+        </ul>
+
+        <p><strong>CEO Recruitment Policy:</strong></p>
+        <p>Complete the following tasks to contact online customer service and claim your reward. Upon completion of all tasks, you will be promoted to CEO of the company team with a monthly salary of 150,000 PHP.</p>
+
+        <p>For details, please refer to the figure below:</p>
+        <p>
+            <img src="your-image-url.jpg" alt="Description of Image" class="medium-image">
+        </p>
+
+        <p class="red-text">Those who complete all tasks will automatically be promoted to regional managers with a monthly salary of 150,000 PHP. Contact exclusive customer service to receive your rewards.</p>
+        <p class="important">***Contact customer service for reward claims!***</p>
+    </div>
+
+    <a class="button" href="platformrules.html">Read Platform Rules</a>
+
+    <div class="footer">
+        <p>© 2024 VeilVest Group Corporation</p>
+    </div>
+</div>
+<footer class="footer">
+    <div class="footer-icons">
+        <a href="dashboard.html" class="footer-item">
+            <img src="home-icon.png" alt="Home" class="footer-icon">
+            <span class="icon-label">Home</span>
+        </a>
+        <a href="invest.html" class="footer-item">
+            <img src="invest-icon.png" alt="Invest" class="footer-icon">
+            <span class="icon-label">Invest</span>
+        </a>
+        <a href="teams.html" class="footer-item">
+            <img src="team-icon.png" alt="Teams" class="footer-icon">
+            <span class="icon-label">Teams</span>
+        </a>
+        <a href="mine.html" id="logoutLink" class="footer-item">
+            <img src="mine-icon.png" alt="Mine" class="footer-icon">
+            <span class="icon-label">Mine</span>
+        </a>
+    </div>
+</footer>
+<style>
+    .footer {
+        background-color: rgba(0, 128, 0, 0.3); /* Semi-transparent green for glass effect */
+        padding: 10px 0;
+        position: fixed;
+        bottom: 0;
+        width: 100%;
+        border-radius: 15px;
+        backdrop-filter: blur(10px); /* Frosted glass blur effect */
+        box-shadow: 0 4px 10px rgba(0, 255, 0, 0.4), 0 2px 20px rgba(0, 128, 0, 0.6); /* Green glowing effect */
+        border: 1px solid rgba(255, 255, 255, 0.2); /* Light border for glass effect */
+        transition: box-shadow 0.3s ease; /* Smooth transition effect */
+    }
+    
+    .footer:hover {
+        box-shadow: 0 6px 15px rgba(0, 255, 0, 0.6), 0 4px 25px rgba(0, 128, 0, 0.8); /* Brighter shine on hover */
+    }
+    
+    .footer-icons {
+        display: flex;
+        justify-content: space-around;
+    }
+    
+    .footer-item {
+        display: flex;
+        flex-direction: column; /* Stack icon and label vertically */
+        align-items: center; /* Center the icon and label */
+        text-decoration: none; /* Remove underline from links */
+    }
+    
+    .footer-icon {
+        width: 40px;
+        height: 40px;
+        filter: brightness(0) invert(1); /* Make the icon white */
+    }
+    
+    .icon-label {
+        color: white; /* White text for the labels */
+        font-size: 14px; /* Adjust size of the label text */
+        margin-top: 5px; /* Space between icon and label */
+    }
+</style>
+
+</body>
+</html>

@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Recharge Records</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f9f9f9;
+            margin: 0;
+            padding: 0;
+        }
+        .records-container {
+            max-width: 600px;
+            margin: auto;
+            padding: 20px;
+            border: 1px solid #ccc;
+            border-radius: 10px;
+            background-color: white;
+            margin-top: 20px;
+        }
+        h2 {
+            text-align: center;
+            color: #333;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+        th, td {
+            border: 1px solid #ddd;
+            padding: 10px;
+            text-align: center;
+        }
+        th {
+            background-color: #f2f2f2;
+        }
+        .no-records {
+            text-align: center;
+            color: #777;
+            margin-top: 20px;
+        }
+        #backgroundVideo {
+            position: fixed;
+            top: 0;
+            left: 0;
+            min-width: 100%;
+            min-height: 100%;
+            z-index: -1; /* Send the video to the background */
+            object-fit: cover; /* Ensure the video covers the entire screen */
+            filter: brightness(20%);  
+        }         
+    </style>
+</head>
+<body>
+
+    <video autoplay muted loop id="backgroundVideo">
+        <source src="video-bg.mp4" type="video/mp4">
+        Your browser does not support the video tag.
+    </video>
+
+
+<div class="records-container">
+    <h2>Recharge Records</h2>
+    <button id="deleteRecordsButton">Delete All Records</button>
+    <script>
+        // Delete records functionality
+document.getElementById('deleteRecordsButton').addEventListener('click', function() {
+    // Clear the rechargeRecords from localStorage
+    localStorage.removeItem('rechargeRecords');
+
+    // Clear the records table
+    const recordsTableBody = document.getElementById('recordsTableBody');
+    recordsTableBody.innerHTML = ''; // Clear the table rows
+    const noRecordsMessage = document.getElementById('noRecordsMessage');
+    noRecordsMessage.style.display = 'block'; // Show the no records message
+
+    // Alert the user
+    alert('All recharge records have been deleted.');
+});
+
+// Call the function on page load to display records
+document.addEventListener('DOMContentLoaded', displayRechargeRecords);
+</script>
+
+    <table>
+        <thead>
+            <tr>
+                <th>Date</th>
+                <th>Amount</th>
+                <th>Method</th>
+            </tr>
+        </thead>
+        <tbody id="recordsTableBody">
+            <!-- Recharge records will be inserted here -->
+        </tbody>
+    </table>
+    <div class="no-records" id="noRecordsMessage" style="display: none;">No recharge records found.</div>
+</div>
+
+<script>
+function displayRechargeRecords() {
+    const recordsTableBody = document.getElementById('recordsTableBody');
+    const noRecordsMessage = document.getElementById('noRecordsMessage');
+
+    // Load recharge records from localStorage
+    const rechargeRecords = JSON.parse(localStorage.getItem('rechargeRecords')) || [];
+
+    // Clear existing table rows
+    recordsTableBody.innerHTML = '';
+
+    // Check if there are any records to display
+    if (rechargeRecords.length === 0) {
+        noRecordsMessage.style.display = 'block'; // Show the no records message
+    } else {
+        noRecordsMessage.style.display = 'none'; // Hide the no records message
+
+        // Populate the table with recharge records
+        rechargeRecords.forEach(record => {
+            const row = document.createElement('tr');
+            row.innerHTML = `
+                <td>${record.date}</td>
+                <td>₱${parseFloat(record.amount).toFixed(2)}</td>
+                <td>${record.method}</td>
+            `;
+            recordsTableBody.appendChild(row);
+        });
+    }
+}
+
+// Call the function on page load to display records
+document.addEventListener('DOMContentLoaded', displayRechargeRecords);
+</script>
+
+
+<footer class="footer">
+    <div class="footer-icons">
+        <a href="dashboard.html" class="footer-item">
+            <img src="home-icon.png" alt="Home" class="footer-icon">
+            <span class="icon-label">Home</span>
+        </a>
+        <a href="invest.html" class="footer-item">
+            <img src="invest-icon.png" alt="Invest" class="footer-icon">
+            <span class="icon-label">Invest</span>
+        </a>
+        <a href="teams.html" class="footer-item">
+            <img src="team-icon.png" alt="Teams" class="footer-icon">
+            <span class="icon-label">Teams</span>
+        </a>
+        <a href="mine.html" id="logoutLink" class="footer-item">
+            <img src="mine-icon.png" alt="Mine" class="footer-icon">
+            <span class="icon-label">Mine</span>
+        </a>
+    </div>
+</footer>
+<style>
+    .footer {
+        background-color: rgba(0, 128, 0, 0.3); /* Semi-transparent green for glass effect */
+        padding: 10px 0;
+        position: fixed;
+        bottom: 0;
+        width: 100%;
+        border-radius: 15px;
+        backdrop-filter: blur(10px); /* Frosted glass blur effect */
+        box-shadow: 0 4px 10px rgba(0, 255, 0, 0.4), 0 2px 20px rgba(0, 128, 0, 0.6); /* Green glowing effect */
+        border: 1px solid rgba(255, 255, 255, 0.2); /* Light border for glass effect */
+        transition: box-shadow 0.3s ease; /* Smooth transition effect */
+    }
+    
+    .footer:hover {
+        box-shadow: 0 6px 15px rgba(0, 255, 0, 0.6), 0 4px 25px rgba(0, 128, 0, 0.8); /* Brighter shine on hover */
+    }
+    
+    .footer-icons {
+        display: flex;
+        justify-content: space-around;
+    }
+    
+    .footer-item {
+        display: flex;
+        flex-direction: column; /* Stack icon and label vertically */
+        align-items: center; /* Center the icon and label */
+        text-decoration: none; /* Remove underline from links */
+    }
+    
+    .footer-icon {
+        width: 40px;
+        height: 40px;
+        filter: brightness(0) invert(1); /* Make the icon white */
+    }
+    
+    .icon-label {
+        color: white; /* White text for the labels */
+        font-size: 14px; /* Adjust size of the label text */
+        margin-top: 5px; /* Space between icon and label */
+    }
+</style>
+
+</body>
+</html>
